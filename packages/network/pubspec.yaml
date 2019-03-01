@@ -1,14 +1,14 @@
 name: network
-description: http hooks for easy works
+description: Plugin including hooks for easy works with http package in dart
 version: 0.0.1
 author: Serge Shkurko <sergeshkurko@outlook.com>
 homepage: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/network
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
-  http: 0.12.0+1
+  http: ^0.12.0+1
 
 dev_dependencies:
   test: ^1.5.3

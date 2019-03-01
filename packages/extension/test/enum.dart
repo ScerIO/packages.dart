@@ -11,20 +11,24 @@ main() {
   group('Enum value by string', () {
     test('Base', () {
       final one = enumValueByString(_TestNormal.values, 'one');
-      expect(one, allOf([
-        equals(_TestNormal.one),
-        isNot(equals(_TestNormal.two)),
-        isNot(equals(_TestNormal.one1)),
-      ]));
+      expect(
+          one,
+          allOf([
+            equals(_TestNormal.one),
+            isNot(equals(_TestNormal.two)),
+            isNot(equals(_TestNormal.one1)),
+          ]));
     });
 
     test('Case intensive', () {
       final caseIntensive = enumValueByString(_TestNormal.values, 'OnE');
-      expect(caseIntensive, allOf([
-        equals(_TestNormal.one),
-        isNot(equals(_TestNormal.two)),
-        isNot(equals(_TestNormal.one1)),
-      ]));
+      expect(
+          caseIntensive,
+          allOf([
+            equals(_TestNormal.one),
+            isNot(equals(_TestNormal.two)),
+            isNot(equals(_TestNormal.one1)),
+          ]));
     });
 
     test('Not exist', () {

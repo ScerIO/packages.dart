@@ -1,3 +1,6 @@
+/// Throws if enum value not found
+class EnumValueNotFoundException implements Exception {}
+
 /// Returns enum value by string
 ///
 /// ```dart
@@ -9,7 +12,7 @@
 /// enumValueByString(Enum.values, 'one') == Enum.one
 /// ```
 T enumValueByString<T>(List<T> values, String key) {
-  if (key == null) return null;
+  if (values == null || key == null) throw Exception('Invalide params');
 
   for (T item in values) {
     // Remove Enum name from enum item
@@ -20,5 +23,5 @@ T enumValueByString<T>(List<T> values, String key) {
     }
   }
 
-  return null;
+  throw EnumValueNotFoundException();
 }
