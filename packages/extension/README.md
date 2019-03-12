@@ -1,6 +1,6 @@
-<img src="./media/hero.png" alt="Markdownify" width="100%">
+<img src="https://raw.githubusercontent.com/rbcprolabs/dart_plugins/master/packages/extension/media/hero.png" alt="Logo" width="100%" />
 
-<h4 align="center">Package including lot helpers for easy developing on <a href="https://www.dartlang.org/" target="_blank">dart</a> language.</h4>
+<p align="center">Package including lot helpers for easy developing on <a href="https://www.dartlang.org/" target="_blank">dart</a> language.</p>
 
 <p align="center">
   <a href="https://pub.dartlang.org/packages/extension">
