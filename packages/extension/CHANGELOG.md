@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.0.3
+
+* `enumValueByString` now throws `EnumValueInvalideParamsException` instead simple `Exception`
+
 ## 0.0.2
 
 ### Breaking Changes

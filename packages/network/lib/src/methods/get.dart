@@ -12,8 +12,6 @@ Future<T> get<T extends BinaryResponse>(String url,
 
   final response = makeResponseByType<T>(statusCode, httpResponse.bodyBytes);
 
-  print(response.runtimeType);
-
   if (statusCode < 200 || statusCode >= 400) {
     throw NetworkException<T>(response);
   }

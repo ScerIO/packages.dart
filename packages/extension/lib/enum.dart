@@ -1,3 +1,5 @@
+/// Throws if [values] or [key] gives null
+class EnumValueInvalideParamsException implements Exception {}
 /// Throws if enum value not found
 class EnumValueNotFoundException implements Exception {}
 
@@ -12,7 +14,7 @@ class EnumValueNotFoundException implements Exception {}
 /// enumValueByString(Enum.values, 'one') == Enum.one
 /// ```
 T enumValueByString<T>(List<T> values, String key) {
-  if (values == null || key == null) throw Exception('Invalide params');
+  if (values == null || key == null) throw EnumValueInvalideParamsException();
 
   for (T item in values) {
     // Remove Enum name from enum item
