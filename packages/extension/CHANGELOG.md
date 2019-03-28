@@ -3,6 +3,11 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.0.4
+
+* Added string entity with `capitalizeFirstLetter` function
+* `enumValueByString` returns null if can't find the value
+
 ## 0.0.3
 
 * `enumValueByString` now throws `EnumValueInvalideParamsException` instead simple `Exception`

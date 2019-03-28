@@ -10,9 +10,6 @@ main() {
   final AnyEnum findedvalue = enumValueByString(AnyEnum.values, 'two');
   print(findedvalue == AnyEnum.two);
 
-  try {
-    enumValueByString(AnyEnum.values, 'bed value');
-  } on EnumValueNotFoundException {
-    print('Im successfuly handled');
-  }
+  enumValueByString(AnyEnum.values, 'bed value') ??
+      print('Im successfuly handled');
 }
