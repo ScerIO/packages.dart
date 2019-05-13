@@ -1,5 +1,9 @@
-// import 'package:test/test.dart';
-// import 'package:network/network.dart';
+import 'package:test/test.dart';
+import 'package:network/network.dart';
 
 /// TODO: Make tests
-// void main() {}
+void main() {
+  test('get', () {
+    get('https://jsonplaceholder.typicode.com/todos/1');
+  });
+}

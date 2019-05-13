@@ -5,17 +5,18 @@ import 'package:http/http.dart' as http show post, Response;
 import 'package:network/src/exception.dart';
 import 'package:network/src/response.dart';
 import 'package:network/src/utils.dart';
+import 'package:network/src/utils/serialize_query_params.dart';
 
 Future<T> post<T extends BinaryResponse>(
   String url, {
   Map<String, String> headers,
-  body = '',
+  body,
   Encoding encoding,
-  bool jsonBody = true,
+  Map<String, dynamic> queryParameters = const {},
 }) async {
   final http.Response httpResponse = await http.post(
-    url,
-    body: jsonBody ? jsonEncode(body) : body,
+    url + serializeQueryParameters(queryParameters),
+    body: body is Map ? jsonEncode(body) : body,
     headers: headers,
     encoding: encoding,
   );

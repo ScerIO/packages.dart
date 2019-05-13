@@ -16,12 +16,17 @@ class BinaryResponse {
 class JsonApiResponse extends BinaryResponse {
   JsonApiResponse(int statusCode, Uint8List bytes) : super(statusCode, bytes);
 
-  /// Convert json body to map
-  Map<String, dynamic> get toMap {
+  dynamic _decode() {
     final String json = utf8.decode(bytes);
 
     if (json == null) throw Exception('JSON decoding error');
 
     return jsonDecode(json);
   }
+
+  /// Convert json body to map
+  Map<String, dynamic> get toMap => _decode();
+
+  /// Convert json body to list
+  List<dynamic> get toList => _decode();
 }
