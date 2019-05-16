@@ -2,7 +2,7 @@ import 'dart:async' show Future;
 import 'package:http/http.dart' as http show get, Response;
 import 'package:network/src/exception.dart';
 import 'package:network/src/response.dart';
-import 'package:network/src/utils.dart';
+import 'package:network/src/utils/response_by_type.dart';
 import 'package:network/src/utils/serialize_query_params.dart';
 
 Future<T> get<T extends BinaryResponse>(

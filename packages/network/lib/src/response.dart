@@ -8,12 +8,22 @@ class BinaryResponse {
   /// Response body bytes
   final Uint8List bytes;
 
+  /// Raw binary response
   BinaryResponse(this.statusCode, this.bytes);
 
+  /// Do not use this.
+  /// Will be removed in v1.0.0
+  @deprecated
   BinaryResponse.make(this.statusCode, this.bytes);
+
+  @override
+  String toString() => '$runtimeType{statusCode: $statusCode}';
+
+  JsonApiResponse toJsonApiResponse() => JsonApiResponse(statusCode, bytes);
 }
 
 class JsonApiResponse extends BinaryResponse {
+  /// Json api response
   JsonApiResponse(int statusCode, Uint8List bytes) : super(statusCode, bytes);
 
   dynamic _decode() {

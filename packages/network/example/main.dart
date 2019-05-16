@@ -2,9 +2,8 @@ import 'package:network/network.dart' as network;
 
 main() async {
   final getResponse = await network.get<network.JsonApiResponse>(
-      'https://jsonplaceholder.typicode.com/comments', queryParameters: {
-        'postId': 1
-      });
+      'https://jsonplaceholder.typicode.com/comments',
+      queryParameters: {'postId': 1});
   print(getResponse.toList[1]['body']);
 
   // Post request to api

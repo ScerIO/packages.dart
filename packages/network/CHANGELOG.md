@@ -3,6 +3,11 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.2.0
+
+* Added `toString()` method for `NetworkException` and `BinaryResponse`
+* Added `toJsonApiResponse()` method for `BinaryResponse`
+
 ## 0.1.0
 
 * Added parameter `queryParameters` for all methods

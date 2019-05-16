@@ -23,11 +23,6 @@
 
 ## Getting Started
 
-Import
-```dart
-import 'package:network/network.dart'
-``` 
-
 Get request to API:
 ```dart
 main() async {
@@ -42,6 +37,23 @@ main() async {
   final blobResponse = await network.get(
       'https://via.placeholder.com/300');
   print(blobResponse.bytes);
+}
+```
+
+Post request to API:
+```dart
+final postResponse = await network.post<network.JsonApiResponse>(
+      'https://jsonplaceholder.typicode.com/todos',
+      body: {'title': 'test'});
+  print(postResponse.toMap['id']);
+```
+
+Handle exceptions:
+```dart
+try {
+  await network.get('https://jsonplaceholder.typicode.com/todos/202');
+} on network.NetworkException catch (error) {
+  print('Network exception called, status code: ${error.code}');
 }
 ```
 
