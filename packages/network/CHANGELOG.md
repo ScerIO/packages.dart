@@ -3,6 +3,20 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.5.0 
+
+* Refactoring
+
+## 0.4.0
+
+* Added `NetworkUnavailableException`
+* Fixed `exceptionDelegate`
+
+## 0.3.0
+
+* Added `NetworkSettings`
+* Added `exceptionDelegate` in `NetworkSettings`
+
 ## 0.2.0
 
 * Added `toString()` method for `NetworkException` and `BinaryResponse`

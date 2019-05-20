@@ -10,3 +10,5 @@ class NetworkException<T extends BinaryResponse> implements Exception {
   @override
   String toString() => '$runtimeType{code: $code}';
 }
+
+class NetworkUnavailableException implements Exception {}

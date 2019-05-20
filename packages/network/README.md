@@ -57,6 +57,23 @@ try {
 }
 ```
 
+Provide their exceptions:
+```dart
+network.NetworkSettings().exceptionDelegate = (network.NetworkException error) {
+  // You can check type of respose in error by:
+  // if (error is network.JsonApiResponse)
+
+  switch (error.code) {
+    case 400:
+      throw BadRequestException(error.response);
+    case 404:
+      throw NotFoundException(error.response);
+    default:
+      throw error;
+  }
+};
+```
+
 And... api reference [available here](https://pub.dartlang.org/documentation/network/latest/)
 
 ## TODO
