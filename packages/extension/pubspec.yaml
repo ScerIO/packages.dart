@@ -1,6 +1,6 @@
 name: extension
 description: Package including lot helpers for easy developing on dart language
-version: 0.0.4
+version: 0.0.5
 author: Serge Shkurko <sergeshkurko@outlook.com>
 homepage: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/extension
 

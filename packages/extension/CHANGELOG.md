@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.0.5
+
+* Added operator `==` to `Enum<T>`
+
 ## 0.0.4
 
 * Added string entity with `capitalizeFirstLetter` function

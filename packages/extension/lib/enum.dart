@@ -23,6 +23,9 @@ abstract class Enum<T> {
   const Enum(this._value);
 
   T get value => _value;
+
+  @override
+  bool operator ==(dynamic other) => other is Enum && other.value == value;
 }
 
 /// Throws if [values] or [key] gives null
