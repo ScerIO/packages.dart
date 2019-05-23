@@ -35,10 +35,18 @@ Future<T> post<T extends BinaryResponse>(
     }
 
     if (statusCode < 200 || statusCode >= 400) {
-      settings.exceptionDelegate(NetworkException<T>(response));
+      if (settings.hasExceptionDelegate) {
+        settings.exceptionDelegate(NetworkException<T>(response));
+      }
+    } else {
+      if (settings.hasSuccessfulDelegate) {
+        settings.successfulDelegate();
+      }
     }
   } on SocketException catch (_) {
-    settings.exceptionDelegate(NetworkUnavailableException());
+    if (settings.hasExceptionDelegate) {
+      settings.exceptionDelegate(NetworkUnavailableException());
+    }
   }
 
   return response;
