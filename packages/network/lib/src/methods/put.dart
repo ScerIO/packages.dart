@@ -32,9 +32,15 @@ Future<T> put<T extends BinaryResponse>(
 
     if (statusCode < 200 || statusCode >= 400) {
       throw NetworkException<T>(response);
+    } else {
+      if (settings.hasSuccessfulDelegate) {
+        settings.successfulDelegate();
+      }
     }
   } on SocketException catch (_) {
-    settings.exceptionDelegate(NetworkUnavailableException());
+    if (settings.hasExceptionDelegate) {
+      settings.exceptionDelegate(NetworkUnavailableException());
+    }
   }
 
   return response;

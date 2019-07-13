@@ -28,6 +28,10 @@ Future<T> get<T extends BinaryResponse>(
       } else {
         throw NetworkException<T>(response);
       }
+    } else {
+      if (settings.hasSuccessfulDelegate) {
+        settings.successfulDelegate();
+      }
     }
   } on SocketException catch (_) {
     if (settings.hasExceptionDelegate) {
