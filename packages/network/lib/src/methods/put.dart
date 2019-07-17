@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'dart:convert' show Encoding, jsonEncode;
 
-import 'package:http/http.dart' as http show put, Response;
+import 'package:http/http.dart' as http show Client, Response;
 import 'package:network/src/exception.dart';
 import 'package:network/src/response.dart';
 import 'package:network/src/settings.dart';
@@ -10,19 +10,24 @@ import 'package:network/src/utils/response_by_type.dart';
 import 'package:network/src/utils/serialize_query_params.dart';
 
 Future<T> put<T extends BinaryResponse>(
-  String url, {
+  url, {
   Map<String, String> headers,
   body,
   Encoding encoding,
   Map<String, dynamic> queryParameters = const {},
 }) async {
   T response;
+  final client = http.Client();
   final settings = NetworkSettings();
+  final Map<String, String> allHeaders = settings.defaultHeaders;
+  if (headers != null) {
+    allHeaders.addAll(headers);
+  }
   try {
-    final http.Response httpResponse = await http.put(
+    final http.Response httpResponse = await client.put(
       url + serializeQueryParameters(queryParameters),
       body: body is Map ? jsonEncode(body) : body,
-      headers: headers,
+      headers: allHeaders,
       encoding: encoding,
     );
 
@@ -32,9 +37,15 @@ Future<T> put<T extends BinaryResponse>(
 
     if (statusCode < 200 || statusCode >= 400) {
       throw NetworkException<T>(response);
+    } else {
+      if (settings.hasSuccessfulDelegate) {
+        settings.successfulDelegate();
+      }
     }
   } on SocketException catch (_) {
     settings.exceptionDelegate(NetworkUnavailableException());
+  } finally {
+    client.close();
   }
 
   return response;

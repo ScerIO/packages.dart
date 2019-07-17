@@ -1,11 +1,11 @@
 name: network
 description: Package including hooks for easy works with http package in dart
-version: 0.5.0
+version: 0.6.0
 author: Serge Shkurko <sergeshkurko@outlook.com>
 homepage: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/network
 
 environment:
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   http: ^0.12.0+2

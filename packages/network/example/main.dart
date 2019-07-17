@@ -51,10 +51,10 @@ main() async {
     print('No intrernet connection');
   }
 
-
   // Or post binary
   await network.post<network.JsonApiResponse>(
-    'https://jsonplaceholder.typicode.com/todos', body: [0,0,0,0,0]);
+      'https://jsonplaceholder.typicode.com/todos',
+      body: [0, 0, 0, 0, 0]);
 
   // Handle exceptions
   try {

@@ -9,7 +9,7 @@ import 'package:network/src/settings.dart';
 import 'package:network/src/utils/response_by_type.dart';
 import 'package:network/src/utils/serialize_query_params.dart';
 
-Future<T> post<T extends BinaryResponse>(
+Future<T> patch<T extends BinaryResponse>(
   url, {
   Map<String, String> headers,
   body,
@@ -24,7 +24,7 @@ Future<T> post<T extends BinaryResponse>(
     allHeaders.addAll(headers);
   }
   try {
-    final http.Response httpResponse = await client.post(
+    final http.Response httpResponse = await client.patch(
       url + serializeQueryParameters(queryParameters),
       body: body is String ? body : jsonEncode(body),
       headers: allHeaders,
