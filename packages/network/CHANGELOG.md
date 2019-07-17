@@ -3,6 +3,11 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.6.0
+* Added `userAgent` (available in Settings)
+* Added `defaultHeaders` (available in Settings)
+* Added default http exceptions (like a unautchorized, not found etc)
+
 ## 0.5.0 
 
 * Refactoring
