@@ -8,6 +8,7 @@ Common plugins for dart landuage
 |---|---|---|
 | [extension][extension_pub] | ![pub package][extension_badge] | [`packages/extension`][extension_code] |
 | [network][network_pub] | ![pub package][network_badge] | [`packages/network`][network_code] |
+| [register][register_pub] | ![pub package][register_badge] | [`packages/register`][register_code] |
 
 
 [extension_pub]: https://pub.dartlang.org/packages/extension
@@ -17,3 +18,7 @@ Common plugins for dart landuage
 [network_pub]: https://pub.dartlang.org/packages/network
 [network_code]: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/network
 [network_badge]: https://img.shields.io/pub/v/network.svg
+
+[network_pub]: https://pub.dartlang.org/packages/register
+[network_code]: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/register
+[network_badge]: https://img.shields.io/pub/v/register.svg
