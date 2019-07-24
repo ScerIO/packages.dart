@@ -19,6 +19,6 @@ Common plugins for dart landuage
 [network_code]: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/network
 [network_badge]: https://img.shields.io/pub/v/network.svg
 
-[network_pub]: https://pub.dartlang.org/packages/register
-[network_code]: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/register
-[network_badge]: https://img.shields.io/pub/v/register.svg
+[register_pub]: https://pub.dartlang.org/packages/register
+[register_code]: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/register
+[register_badge]: https://img.shields.io/pub/v/register.svg
