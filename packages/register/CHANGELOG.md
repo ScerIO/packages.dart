@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 1.0.1
+
+* Updated package description
+
 ## 1.0.0
 
 * Initial release
