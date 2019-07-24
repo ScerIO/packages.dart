@@ -1,0 +1,16 @@
+name: register
+description: Package for consistent usage of identifiers
+version: 1.0.0
+author: Serge Shkurko <sergeshkurko@outlook.com>
+homepage: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/register
+
+environment:
+  sdk: ">=2.0.0 <3.0.0"
+
+dependencies:
+  quiver: ^2.0.3
+  collection: ^1.14.11
+
+dev_dependencies:
+  test: ^1.5.3
+  pedantic: ^1.5.0
