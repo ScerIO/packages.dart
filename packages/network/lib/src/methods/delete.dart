@@ -7,13 +7,17 @@ import 'package:network/src/settings.dart';
 import 'package:network/src/utils/response_by_type.dart';
 import 'package:network/src/utils/serialize_query_params.dart';
 
+/// Sends an HTTP DELETE request with the given headers to the given URL, which can
+/// be a [Uri] or a [String].
 Future<T> delete<T extends BinaryResponse>(
   url, {
   Map<String, String> headers,
   Map<String, dynamic> queryParameters = const {},
+  http.Client client,
+  bool autoCloseClient = true,
 }) async {
   T response;
-  final client = http.Client();
+  client ??= http.Client();
   final settings = NetworkSettings();
   final Map<String, String> allHeaders = settings.defaultHeaders;
   if (headers != null) {
@@ -38,7 +42,9 @@ Future<T> delete<T extends BinaryResponse>(
   } on SocketException catch (_) {
     settings.exceptionDelegate(NetworkUnavailableException());
   } finally {
-    client.close();
+    if (autoCloseClient) {
+      client.close();
+    }
   }
 
   return response;

@@ -15,9 +15,11 @@ Future<T> put<T extends BinaryResponse>(
   body,
   Encoding encoding,
   Map<String, dynamic> queryParameters = const {},
+  http.Client client,
+  bool autoCloseClient = true,
 }) async {
   T response;
-  final client = http.Client();
+  client ??= http.Client();
   final settings = NetworkSettings();
   final Map<String, String> allHeaders = settings.defaultHeaders;
   if (headers != null) {
@@ -36,7 +38,7 @@ Future<T> put<T extends BinaryResponse>(
     response = makeResponseByType<T>(statusCode, httpResponse.bodyBytes);
 
     if (statusCode < 200 || statusCode >= 400) {
-      throw NetworkException<T>(response);
+      settings.exceptionDelegate(NetworkException<T>(response));
     } else {
       if (settings.hasSuccessfulDelegate) {
         settings.successfulDelegate();
@@ -45,7 +47,9 @@ Future<T> put<T extends BinaryResponse>(
   } on SocketException catch (_) {
     settings.exceptionDelegate(NetworkUnavailableException());
   } finally {
-    client.close();
+    if (autoCloseClient) {
+      client.close();
+    }
   }
 
   return response;

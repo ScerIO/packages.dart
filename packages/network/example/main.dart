@@ -47,7 +47,7 @@ main() async {
         'https://jsonplaceholder.typicode.com/todos',
         body: {'title': 'test'});
     print(postResponse.toMap['id']);
-  } on NoInternetConnection catch (error) {
+  } on NoInternetConnection {
     print('No intrernet connection');
   }
 
