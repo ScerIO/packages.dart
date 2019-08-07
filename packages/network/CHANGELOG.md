@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.7.1
+
+* Fix defaul headers
+
 ## 0.7.0 
 
 * Added property to use an external http-client

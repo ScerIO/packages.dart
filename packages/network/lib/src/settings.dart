@@ -54,5 +54,5 @@ class NetworkSettings {
 
   void removeDefaultHeader(String name) => _defaultHeaders.remove(name);
 
-  Map<String, String> get defaultHeaders => _defaultHeaders;
+  Map<String, String> get defaultHeaders => Map.from(_defaultHeaders);
 }
