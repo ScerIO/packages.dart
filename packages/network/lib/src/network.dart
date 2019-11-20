@@ -15,7 +15,7 @@ import 'package:network/src/utils/serialize_query_params.dart';
 import 'methods.dart';
 
 class Network {
-  Network([http.Client client]) : client = client ?? http.Client;
+  Network([http.Client client]) : client = client ?? http.Client();
   final http.Client client;
 
   Set<Middleware> _middleware = {};

@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.9.3
+
+* Fixed client
+
 ## 0.9.2
 
 * Fixed middleware
