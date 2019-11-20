@@ -3,9 +3,14 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.9.0
+
+* Added optional http.Client argument `Network(http.Client())`
+* Added (local) middlewares for client `Network().middleware.add()`
+
 ## 0.8.0
 
-* Added middleware! Usage example:
+* Added global middleware! Usage example:
 ```dart
 network.settings.middleware.add(
   network.Middleware(

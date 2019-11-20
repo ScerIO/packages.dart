@@ -3,6 +3,7 @@ import 'dart:convert' show Encoding;
 import 'package:http/http.dart' as http show Client, Request, Response;
 import 'package:meta/meta.dart';
 import 'package:network/src/exception.dart';
+import 'package:network/src/middleware.dart';
 import 'package:network/src/request.dart';
 
 import 'package:network/src/response.dart';
@@ -14,7 +15,12 @@ import 'package:network/src/utils/serialize_query_params.dart';
 import 'methods.dart';
 
 class Network {
-  http.Client client = http.Client();
+  Network([http.Client client]) : client = client ?? http.Client;
+  final http.Client client;
+
+  Set<Middleware> _middleware = {};
+
+  Set<Middleware> get middleware => _middleware;
 
   Future<T> head<T extends BinaryResponse>(
     url, {
@@ -123,7 +129,7 @@ class Network {
     }
 
     final request = eachMiddlewareRequests(
-      settings,
+      {...settings.middleware, ..._middleware},
       Request(
         headers: allHeaders,
         method: method,
@@ -147,7 +153,7 @@ class Network {
       final int statusCode = httpResponse.statusCode;
 
       response = eachMiddlewareResponses(
-        settings,
+        {...settings.middleware, ..._middleware},
         makeResponseByType<T>(
           statusCode,
           httpResponse.bodyBytes,
@@ -174,7 +180,7 @@ class Network {
         settings.exceptionDelegate(NetworkUnavailableException(request));
       }
       eachMiddlewareErrors(
-        settings,
+        {...settings.middleware, ..._middleware},
         NetworkUnavailableException(request),
         on: method,
       );

@@ -1,14 +1,14 @@
 import 'package:meta/meta.dart';
+import 'package:network/hooks.dart';
 import 'package:network/src/methods.dart';
 import 'package:network/src/request.dart';
 import 'package:network/src/response.dart';
-import 'package:network/src/settings.dart';
 
 T eachMiddlewareRequests<T extends Request>(
-  NetworkSettings settings,
+  Set<Middleware> middleware,
   T request,
 ) =>
-    settings.middleware.fold<Request>(
+    middleware.fold<Request>(
       request,
       (req, middleware) {
         if (middleware.on?.contains(req.method) ?? true) {
@@ -25,10 +25,10 @@ T eachMiddlewareRequests<T extends Request>(
     request;
 
 T eachMiddlewareResponses<T extends Response>(
-  NetworkSettings settings,
+  Set<Middleware> middleware,
   T response,
 ) =>
-    settings.middleware.fold<Response>(
+    middleware.fold<Response>(
       response,
       (res, middleware) {
         if (middleware.on?.contains(res.request.method) ?? true) {
@@ -41,11 +41,11 @@ T eachMiddlewareResponses<T extends Response>(
     response;
 
 void eachMiddlewareErrors<T extends Object>(
-  NetworkSettings settings,
+  Set<Middleware> middleware,
   T error, {
   @required HttpMethod on,
 }) {
-  throw settings.middleware.fold<Object>(
+  throw middleware.fold<Object>(
         error,
         (err, middleware) {
           if (middleware.on?.contains(on) ?? true) {
