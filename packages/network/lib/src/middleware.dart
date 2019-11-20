@@ -22,4 +22,3 @@ class Middleware {
 
   final Object Function(Object error) onError;
 }
-

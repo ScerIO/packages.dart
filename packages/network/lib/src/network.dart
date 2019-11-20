@@ -192,7 +192,7 @@ class Network {
     Encoding encoding,
   }) async {
     if (url is String) url = Uri.parse(url);
-    var request = new http.Request(method, url);
+    http.Request request = new http.Request(method, url);
 
     if (headers != null) request.headers.addAll(headers);
     if (encoding != null) request.encoding = encoding;
