@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.9.2
+
+* Fixed middleware
+
 ## 0.9.1
 
 * Fixed error on empty middleware methods
