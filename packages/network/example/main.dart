@@ -16,25 +16,29 @@ class NotFoundException<T extends network.BinaryResponse>
 class NoInternetConnection {}
 
 main() async {
-  network.NetworkSettings().exceptionDelegate = (error) {
-    // You can check type of respose in error by:
-    // if (error is network.JsonApiResponse)
+  network.settings
+    ..middleware.add(network.Middleware(
+      onRequest: (request) {
+        print('\n request: ${request.url} \n');
+        return request;
+      },
+      onError: (error) {
+        if (error is network.NetworkException) {
+          switch (error.code) {
+            case 400:
+              return BadRequestException(error.response);
+            case 404:
+              return NotFoundException(error.response);
+            default:
+              return error;
+          }
+        } else if (error is network.NetworkUnavailableException) {
+          return NoInternetConnection();
+        }
 
-    if (error is network.NetworkException) {
-      switch (error.code) {
-        case 400:
-          throw BadRequestException(error.response);
-        case 404:
-          throw NotFoundException(error.response);
-        default:
-          throw error;
-      }
-    } else if (error is network.NetworkUnavailableException) {
-      throw NoInternetConnection();
-    }
-
-    throw error;
-  };
+        return error;
+      },
+    ));
 
   try {
     final getResponse = await network.get<network.JsonApiResponse>(
@@ -48,7 +52,7 @@ main() async {
         body: {'title': 'test'});
     print(postResponse.toMap['id']);
   } on NoInternetConnection {
-    print('No intrernet connection');
+    print('No internet connection');
   }
 
   // Or post binary

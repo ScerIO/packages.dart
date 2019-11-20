@@ -3,9 +3,35 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.8.0
+
+* Added middleware! Usage example:
+```dart
+network.settings.middleware.add(
+  network.Middleware(
+    onRequest: (request) => request,
+    onResponse: (response) => response,
+    onError: (error) => error,
+  )
+);
+```
+* Simplify usage settings (`network.NetworkSettings()...` -> `network.settings...`) 
+* `NetworkSettings.{exceptionDelegate, successfulDelegate, hasSuccessfulDelegate}` marked as deprecated ann will be removed in 1.0.0
+* Usage as client available!
+```dart
+import 'package:network/network.dart';
+final client = Network();
+client.get(...);
+client.post(...);
+client.close();
+```
+* Added `network.head()` method
+* Added `Response.request`
+* Added `PaymentRequired` & `MethodNotAllowed` http exceptions;
+
 ## 0.7.1
 
-* Fix defaul headers
+* Fix default headers
 
 ## 0.7.0 
 
@@ -15,7 +41,7 @@
 
 * Added `userAgent` (available in Settings)
 * Added `defaultHeaders` (available in Settings)
-* Added default http exceptions (like a unautchorized, not found etc)
+* Added default http exceptions (like a unauthorized, not found etc)
 
 ## 0.5.0 
 

@@ -1,6 +1,9 @@
-import 'package:network/src/exception.dart';
+import 'package:network/src/middleware.dart';
 
-typedef ExceptionDelegateCallbak = void Function(dynamic error);
+import 'middlewares/encode_json_body.dart';
+import 'middlewares/default_errors.dart';
+
+typedef ExceptionDelegateCallback = void Function(dynamic error);
 typedef SuccessfulDelegateCallback = void Function();
 
 class NetworkSettings {
@@ -14,36 +17,30 @@ class NetworkSettings {
 
   Map<String, String> _defaultHeaders = {};
 
-  ExceptionDelegateCallbak exceptionDelegate = (error) {
-    if (error is NetworkException && !(error is NetworkUnavailableException)) {
-      switch (error.code) {
-        case 400:
-          throw BadRequestException(error.response);
-        case 401:
-          throw UnauthorizedException(error.response);
-        case 403:
-          throw ForbiddenException(error.response);
-        case 404:
-          throw NotFoundException(error.response);
-        case 500:
-          throw InternalServerException(error.response);
-        default:
-          throw error;
-      }
-    } else {
-      throw error;
-    }
+  @Deprecated('Usage Middleware.error instead')
+  ExceptionDelegateCallback exceptionDelegate = (error) {
+    throw defaultErrors().onError(error);
   };
+  @Deprecated('Usage Middleware.response instead')
   SuccessfulDelegateCallback successfulDelegate;
 
+  @deprecated
+  // ignore: deprecated_member_use_from_same_package
   bool get hasSuccessfulDelegate => successfulDelegate != null;
+
   bool get hasUserAgent => _defaultHeaders[_userAgentHeader] != null;
 
-  set userAgent(String userAgent) =>
+  set userAgent(String userAgent) {
+    if (userAgent == null) {
+      _defaultHeaders.remove(_userAgentHeader);
+    } else {
       _defaultHeaders[_userAgentHeader] = userAgent;
+    }
+  }
 
   String get userAgent => _defaultHeaders[_userAgentHeader];
 
+  @Deprecated('Usage .userAgent = null instead')
   void clearUserAgent() => _defaultHeaders.remove(_userAgentHeader);
 
   void addDefaultHeader(String name, String value) =>
@@ -55,4 +52,15 @@ class NetworkSettings {
   void removeDefaultHeader(String name) => _defaultHeaders.remove(name);
 
   Map<String, String> get defaultHeaders => Map.from(_defaultHeaders);
+
+  Set<Middleware> _middleware = {
+    encodeJsonBody(),
+  };
+
+  Set<Middleware> get middleware => _middleware;
+
+  bool legacyDisabled = false;
+  void disableLegacy() => legacyDisabled = true;
 }
+
+final settings = NetworkSettings();

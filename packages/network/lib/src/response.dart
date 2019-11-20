@@ -1,42 +1,88 @@
 import 'dart:convert' show jsonDecode, utf8;
 import 'dart:typed_data' show Uint8List;
 
-class BinaryResponse {
+import 'package:meta/meta.dart';
+import 'package:network/src/request.dart';
+
+abstract class Response {
   /// Response status code
   final int statusCode;
 
   /// Response body bytes
   final Uint8List bytes;
 
-  /// Raw binary response
-  BinaryResponse(this.statusCode, this.bytes);
+  final Request request;
 
-  /// Do not use this.
-  /// Will be removed in v1.0.0
-  @deprecated
-  BinaryResponse.make(this.statusCode, this.bytes);
+  const Response(this.statusCode, this.bytes, this.request);
+}
+
+class BinaryResponse implements Response {
+  /// Response status code
+  @override
+  final int statusCode;
+
+  /// Response body bytes
+  @override
+  final Uint8List bytes;
+
+  @override
+  final Request request;
+
+  /// Raw binary response
+  BinaryResponse({
+    @required this.statusCode,
+    @required this.bytes,
+    @required this.request,
+  });
+
+  @Deprecated('Will be removed in v1.0.0, use BinaryResponse() instead')
+  const BinaryResponse.make({
+    @required this.statusCode,
+    @required this.bytes,
+    @required this.request,
+  });
 
   @override
   String toString() => '$runtimeType{statusCode: $statusCode}';
 
-  JsonApiResponse toJsonApiResponse() => JsonApiResponse(statusCode, bytes);
+  JsonApiResponse toJsonApiResponse() => JsonApiResponse(
+        statusCode: statusCode,
+        bytes: bytes,
+        request: request,
+      );
 }
 
 class JsonApiResponse extends BinaryResponse {
   /// Json api response
-  JsonApiResponse(int statusCode, Uint8List bytes) : super(statusCode, bytes);
+  JsonApiResponse({
+    @required int statusCode,
+    @required Uint8List bytes,
+    @required Request request,
+  }) : super(
+          statusCode: statusCode,
+          bytes: bytes,
+          request: request,
+        );
 
-  dynamic _decode() {
-    final String json = utf8.decode(bytes);
+  Object _decoded;
 
-    if (json == null) throw Exception('JSON decoding error');
+  Object decode() {
+    if (_decoded == null) {
+      final String json = utf8.decode(bytes);
 
-    return jsonDecode(json);
+      if (json == null) {
+        throw Exception('JSON decoding error');
+      }
+
+      _decoded = jsonDecode(json);
+    }
+
+    return _decoded;
   }
 
   /// Convert json body to map
-  Map<String, dynamic> get toMap => _decode();
+  Map<String, dynamic> get toMap => decode();
 
   /// Convert json body to list
-  List<dynamic> get toList => _decode();
+  List<dynamic> get toList => decode();
 }

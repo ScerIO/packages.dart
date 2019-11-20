@@ -23,29 +23,48 @@
 
 ## Getting Started
 
+```dart
+// Simplify usage
+import 'package:network/hooks.dart' as network;
+network.get(...);
+network.post(...);
+
+// Alternative usage
+import 'package:network/network.dart';
+final client = Network();
+client.get(...);
+client.post(...);
+client.close();
+``` 
+
+For new users (0.8.0+) before all usages need disable backward compatibility
+```dart
+network.settings.disableLegacy();
+```
+
 Get request to API:
 ```dart
-main() async {
-  final getResponse = await network.get<network.JsonApiResponse>(
-      'https://jsonplaceholder.typicode.com/todos/1');
-  print(getResponse.toMap['title']);
-}
+final restResponse = await network.get<network.JsonApiResponse>(
+  'https://jsonplaceholder.typicode.com/todos/1',
+  queryParameters: {'name': 'value'}
+);
+print(restResponse.toMap['title']);
 ``` 
 Get request Blob:
 ```dart
-main() async {
-  final blobResponse = await network.get(
-      'https://via.placeholder.com/300');
-  print(blobResponse.bytes);
-}
+final blobResponse = await network.get(
+  'https://via.placeholder.com/300',
+);
+print(blobResponse.bytes);
 ```
 
 Post request to API:
 ```dart
 final postResponse = await network.post<network.JsonApiResponse>(
-      'https://jsonplaceholder.typicode.com/todos',
-      body: {'title': 'test'});
-  print(postResponse.toMap['id']);
+  'https://jsonplaceholder.typicode.com/todos',
+  body: {'title': 'test'},
+);
+print(postResponse.toMap['id']);
 ```
 
 Handle exceptions:
@@ -57,31 +76,35 @@ try {
 }
 ```
 
-Provide their exceptions:
+Add middleware:
 ```dart
-network.NetworkSettings().exceptionDelegate = (network.NetworkException error) {
-  // You can check type of respose in error by:
-  // if (error is network.JsonApiResponse)
+import 'package:network/middlewares.dart';
 
-  switch (error.code) {
-    case 400:
-      throw BadRequestException(error.response);
-    case 404:
-      throw NotFoundException(error.response);
-    default:
-      throw error;
-  }
-};
+network.settings.middleware.addAll([
+  defaultErrors(),
+  network.Middleware(
+    onRequest: (request) {
+      print('request on: ${request.url}');
+      return request.copyWith(
+        url: request.url + '/additional-link',
+      );
+    },
+    onResponse: (response) {
+      print('response status code: ${response.statusCode}');
+      return response;
+    },
+    onError: (error) {
+      if (error is UnauthorizedException) {
+        signOut();
+      }
+
+      return error;
+    },
+  )
+]);
 ```
 
-And... api reference [available here](https://pub.dartlang.org/documentation/network/latest/)
-
-## TODO
-- [x] Get
-- [x] Post
-- [x] Delete
-- [x] Put
-- [ ] Decorators (#1)
+And... all api docs [available here](https://pub.dartlang.org/documentation/network/latest/)
 
 ## Credits
 This software uses the following open source packages:

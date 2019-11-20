@@ -1,13 +1,26 @@
 import 'dart:typed_data' show Uint8List;
 
-import 'package:network/network.dart';
+import 'package:network/src/request.dart';
+import 'package:network/src/response.dart';
 
-T makeResponseByType<T>(int statusCode, Uint8List bytes) {
-  switch (T) {
+Res makeResponseByType<Res extends Response>(
+  int statusCode,
+  Uint8List bytes,
+  Request request,
+) {
+  switch (Res) {
     case JsonApiResponse:
-      return JsonApiResponse(statusCode, bytes) as T;
+      return JsonApiResponse(
+        statusCode: statusCode,
+        bytes: bytes,
+        request: request,
+      ) as Res;
     case BinaryResponse:
     default:
-      return BinaryResponse(statusCode, bytes) as T;
+      return BinaryResponse(
+        statusCode: statusCode,
+        bytes: bytes,
+        request: request,
+      ) as Res;
   }
 }
