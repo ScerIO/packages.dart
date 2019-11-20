@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:network/network.dart';
+import 'package:network/hooks.dart';
 
 /// TODO: Make tests
 void main() {

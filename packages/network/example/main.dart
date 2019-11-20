@@ -1,69 +1,62 @@
-import 'package:network/network.dart' as network;
-
-/// HTTP 400
-class BadRequestException<T extends network.BinaryResponse>
-    extends network.NetworkException<T> {
-  BadRequestException(T response) : super(response);
-}
+import 'package:network/hooks.dart' as network;
+import 'package:network/middlewares.dart';
 
 /// HTTP 404
-class NotFoundException<T extends network.BinaryResponse>
-    extends network.NetworkException<T> {
-  NotFoundException(T response) : super(response);
+class MyNotFoundException extends network.NetworkException {
+  MyNotFoundException(network.Response response) : super(response);
 }
-
-/// No connection to internet
-class NoInternetConnection {}
 
 main() async {
   network.settings
-    ..middleware.add(network.Middleware(
-      onRequest: (request) {
-        print('\n request: ${request.url} \n');
-        return request;
-      },
-      onError: (error) {
-        if (error is network.NetworkException) {
-          switch (error.code) {
-            case 400:
-              return BadRequestException(error.response);
-            case 404:
-              return NotFoundException(error.response);
-            default:
-              return error;
+    ..middleware.addAll([
+      defaultErrors(),
+      network.Middleware(
+        onRequest: (request) {
+          print('\nrequest: ${request.url} \n');
+          return request;
+        },
+        onResponse: (response) {
+          print('response status code: ${response.statusCode}');
+          return response;
+        },
+        onError: (error) {
+          if (error is NotFoundException) {
+            return MyNotFoundException(error.response);
           }
-        } else if (error is network.NetworkUnavailableException) {
-          return NoInternetConnection();
-        }
 
-        return error;
-      },
-    ));
+          return error;
+        },
+      )
+    ]);
 
   try {
-    final getResponse = await network.get<network.JsonApiResponse>(
+    final getResponse = await network.get(
         'https://jsonplaceholder.typicode.com/comments',
         queryParameters: {'postId': 1});
-    print(getResponse.toList[1]['body']);
+    print('body: ' + getResponse.toList[1]['body']);
 
     // Post request to api
-    final postResponse = await network.post<network.JsonApiResponse>(
+    final postResponse = await network.post(
         'https://jsonplaceholder.typicode.com/todos',
         body: {'title': 'test'});
-    print(postResponse.toMap['id']);
-  } on NoInternetConnection {
-    print('No internet connection');
+    print('id: ' + postResponse.toMap['id']);
   }
+  // Detect unavailable internet connection:
+  // on SocketException - vm / flutter
+  // on http.ClientError - browser
+  // {
+  // print('No internet connection');
+  // }
+  catch (error) {}
 
   // Or post binary
-  await network.post<network.JsonApiResponse>(
-      'https://jsonplaceholder.typicode.com/todos',
+  await network.post('https://jsonplaceholder.typicode.com/todos',
       body: [0, 0, 0, 0, 0]);
 
   // Handle exceptions
   try {
     await network.get('https://jsonplaceholder.typicode.com/todos/202');
-  } on network.NetworkException catch (error) {
+  } on MyNotFoundException catch (error) {
     print('Network exception handled: ${error}');
   }
 }

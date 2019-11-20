@@ -1,15 +1,12 @@
-import 'dart:io' show SocketException;
 import 'dart:convert' show Encoding;
 import 'package:http/http.dart' as http show Client, Request, Response;
 import 'package:meta/meta.dart';
-import 'package:network/src/exception.dart';
 import 'package:network/src/middleware.dart';
 import 'package:network/src/request.dart';
 
 import 'package:network/src/response.dart';
 import 'package:network/src/settings.dart';
 import 'package:network/src/utils/helpers.dart';
-import 'package:network/src/utils/response_by_type.dart';
 import 'package:network/src/utils/serialize_query_params.dart';
 
 import 'methods.dart';
@@ -22,7 +19,7 @@ class Network {
 
   Set<Middleware> get middleware => _middleware;
 
-  Future<T> head<T extends BinaryResponse>(
+  Future<Response> head(
     url, {
     Map<String, String> headers,
     Map<String, dynamic> queryParameters = const {},
@@ -35,7 +32,7 @@ class Network {
     );
   }
 
-  Future<T> delete<T extends BinaryResponse>(
+  Future<Response> delete(
     url, {
     Map<String, String> headers,
     Map<String, dynamic> queryParameters = const {},
@@ -48,7 +45,7 @@ class Network {
     );
   }
 
-  Future<T> get<T extends BinaryResponse>(
+  Future<Response> get(
     url, {
     Map<String, String> headers,
     Map<String, dynamic> queryParameters = const {},
@@ -61,7 +58,7 @@ class Network {
     );
   }
 
-  Future<T> patch<T extends BinaryResponse>(
+  Future<Response> patch(
     url, {
     Map<String, String> headers,
     Object body,
@@ -78,7 +75,7 @@ class Network {
     );
   }
 
-  Future<T> post<T extends BinaryResponse>(
+  Future<Response> post(
     url, {
     Map<String, String> headers,
     Object body,
@@ -95,7 +92,7 @@ class Network {
     );
   }
 
-  Future<T> put<T extends BinaryResponse>(
+  Future<Response> put(
     url, {
     Map<String, String> headers,
     Object body,
@@ -112,7 +109,7 @@ class Network {
     );
   }
 
-  Future<T> send<T extends BinaryResponse>(
+  Future<Response> send(
     url, {
     @required HttpMethod method,
     Map<String, String> headers,
@@ -121,26 +118,25 @@ class Network {
     Map<String, dynamic> queryParameters = const {},
   }) async {
     assert(url is Uri || url is String);
-    T response;
     final settings = NetworkSettings();
     final Map<String, String> allHeaders = settings.defaultHeaders;
     if (headers != null) {
       allHeaders.addAll(headers);
     }
 
-    final request = eachMiddlewareRequests(
-      {...settings.middleware, ..._middleware},
-      Request(
-        headers: allHeaders,
-        method: method,
-        queryParameters: queryParameters,
-        url: url is String ? Uri.parse(url) : url,
-        encoding: encoding,
-        body: body,
-      ),
-    );
-
     try {
+      final request = eachMiddlewareRequests(
+        {...settings.middleware, ..._middleware},
+        Request(
+          headers: allHeaders,
+          method: method,
+          queryParameters: queryParameters,
+          url: url is String ? Uri.parse(url) : url,
+          encoding: encoding,
+          body: body,
+        ),
+      );
+
       final http.Response httpResponse = await _sendUnstreamed(
         httpMethodString(method),
         request.url.toString() +
@@ -150,43 +146,22 @@ class Network {
         encoding: request.encoding,
       );
 
-      final int statusCode = httpResponse.statusCode;
-
-      response = eachMiddlewareResponses(
+      Response response = eachMiddlewareResponses(
         {...settings.middleware, ..._middleware},
-        makeResponseByType<T>(
-          statusCode,
-          httpResponse.bodyBytes,
-          request,
+        Response(
+          statusCode: httpResponse.statusCode,
+          bytes: httpResponse.bodyBytes,
+          request: request,
         ),
       );
-
-      if (!settings.legacyDisabled) {
-        // Will be removed and replaced by middlewares/throw_on_status_codes
-        if (statusCode < 200 || statusCode >= 400) {
-          // ignore: deprecated_member_use_from_same_package
-          settings.exceptionDelegate(NetworkException<T>(response));
-        } else {
-          // ignore: deprecated_member_use_from_same_package
-          if (settings.hasSuccessfulDelegate) {
-            // ignore: deprecated_member_use_from_same_package
-            settings.successfulDelegate();
-          }
-        }
-      }
-    } on SocketException catch (_) {
-      if (!settings.legacyDisabled) {
-        // ignore: deprecated_member_use_from_same_package
-        settings.exceptionDelegate(NetworkUnavailableException(request));
-      }
-      eachMiddlewareErrors(
+      return response;
+    } catch (error) {
+      throw eachMiddlewareErrors(
         {...settings.middleware, ..._middleware},
-        NetworkUnavailableException(request),
+        error,
         on: method,
       );
     }
-
-    return response;
   }
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].

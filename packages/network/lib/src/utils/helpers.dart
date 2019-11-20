@@ -4,9 +4,9 @@ import 'package:network/src/methods.dart';
 import 'package:network/src/request.dart';
 import 'package:network/src/response.dart';
 
-T eachMiddlewareRequests<T extends Request>(
+Request eachMiddlewareRequests(
   Set<Middleware> middleware,
-  T request,
+  Request request,
 ) =>
     middleware.fold<Request>(
       request,
@@ -25,9 +25,9 @@ T eachMiddlewareRequests<T extends Request>(
     ) ??
     request;
 
-T eachMiddlewareResponses<T extends Response>(
+Response eachMiddlewareResponses(
   Set<Middleware> middleware,
-  T response,
+  Response response,
 ) =>
     middleware.fold<Response>(
       response,
@@ -42,12 +42,12 @@ T eachMiddlewareResponses<T extends Response>(
     ) ??
     response;
 
-void eachMiddlewareErrors<T extends Object>(
+Object eachMiddlewareErrors(
   Set<Middleware> middleware,
-  T error, {
+  Object error, {
   @required HttpMethod on,
 }) {
-  throw middleware.fold<Object>(
+  return middleware.fold<Object>(
         error,
         (err, middleware) {
           if ((middleware.on?.contains(on) ?? true) &&

@@ -18,8 +18,10 @@
 
 ## Key Features
 
-* Simple hooks for get / post
-* Specify response type (blob\json api)
+* Simple hooks for all http methods
+* Middlewares witch handling requests, responses and errors
+* Decode json from response (`Response.json()` / `Response.toMap` / `Response.toList`) 
+* Browser support
 
 ## Getting Started
 
@@ -37,18 +39,18 @@ client.post(...);
 client.close();
 ``` 
 
-For new users (0.8.0+) before all usages need disable backward compatibility
+Get request:
 ```dart
-network.settings.disableLegacy();
-```
-
-Get request to API:
-```dart
-final restResponse = await network.get<network.JsonApiResponse>(
+final restResponse = await network.get(
   'https://jsonplaceholder.typicode.com/todos/1',
   queryParameters: {'name': 'value'}
 );
+// Auto decode json response
 print(restResponse.toMap['title']);
+// Also available lists
+print(restResponse.toList[0]);
+// Or pure 
+print(restResponse.json()); // returns Object 
 ``` 
 Get request Blob:
 ```dart
@@ -60,7 +62,7 @@ print(blobResponse.bytes);
 
 Post request to API:
 ```dart
-final postResponse = await network.post<network.JsonApiResponse>(
+final postResponse = await network.post(
   'https://jsonplaceholder.typicode.com/todos',
   body: {'title': 'test'},
 );
@@ -102,6 +104,9 @@ network.settings.middleware.addAll([
     },
   )
 ]);
+// Also can add middleware specify for client:
+final client = Network()..middleware.add(...);
+client.get(...) // Usages global (network.settings.middleware) and local (client) middlewares
 ```
 
 And... all api docs [available here](https://pub.dartlang.org/documentation/network/latest/)

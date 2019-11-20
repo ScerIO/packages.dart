@@ -3,6 +3,14 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.10.0-dev.1
+
+* Removed legacy code
+* Added browser support
+* Removed `NoInternetConnection` exception (Usage instead `SocketException` for vm / flutter and `http.ClientError` for browser)
+* `BinaryResponse` and `JsonApiResponse` now just `Response` with `Response.{json(), toMap, toList}` methods
+* Added optionally `reviver` function for `Response.json()`
+
 ## 0.9.3
 
 * Fixed client

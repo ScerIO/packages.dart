@@ -4,85 +4,55 @@ import 'dart:typed_data' show Uint8List;
 import 'package:meta/meta.dart';
 import 'package:network/src/request.dart';
 
-abstract class Response {
+class Response {
   /// Response status code
   final int statusCode;
 
   /// Response body bytes
   final Uint8List bytes;
 
-  final Request request;
-
-  const Response(this.statusCode, this.bytes, this.request);
-}
-
-class BinaryResponse implements Response {
-  /// Response status code
-  @override
-  final int statusCode;
-
-  /// Response body bytes
-  @override
-  final Uint8List bytes;
-
-  @override
   final Request request;
 
   /// Raw binary response
-  BinaryResponse({
+  Response({
     @required this.statusCode,
     @required this.bytes,
     @required this.request,
   });
 
-  @Deprecated('Will be removed in v1.0.0, use BinaryResponse() instead')
-  const BinaryResponse.make({
-    @required this.statusCode,
-    @required this.bytes,
-    @required this.request,
-  });
+  Object _decodedJson;
 
-  @override
-  String toString() => '$runtimeType{statusCode: $statusCode}';
-
-  JsonApiResponse toJsonApiResponse() => JsonApiResponse(
-        statusCode: statusCode,
-        bytes: bytes,
-        request: request,
-      );
-}
-
-class JsonApiResponse extends BinaryResponse {
-  /// Json api response
-  JsonApiResponse({
-    @required int statusCode,
-    @required Uint8List bytes,
-    @required Request request,
-  }) : super(
-          statusCode: statusCode,
-          bytes: bytes,
-          request: request,
-        );
-
-  Object _decoded;
-
-  Object decode() {
-    if (_decoded == null) {
+  /// Parses the body bytes and returns the resulting Json object.
+  ///
+  /// The optional [reviver] function is called once for each object or list
+  /// property that has been parsed during decoding. The `key` argument is either
+  /// the integer list index for a list property, the string map key for object
+  /// properties, or `null` for the final result.
+  ///
+  /// The default [reviver] (when not provided) is the identity function.
+  ///
+  /// Shorthand for `json.decode`. Useful if a local variable shadows the global
+  /// [json] constant.
+  Object json({Object Function(Object, Object) reviver}) {
+    if (_decodedJson == null) {
       final String json = utf8.decode(bytes);
 
       if (json == null) {
         throw Exception('JSON decoding error');
       }
 
-      _decoded = jsonDecode(json);
+      _decodedJson = jsonDecode(json, reviver: reviver);
     }
 
-    return _decoded;
+    return _decodedJson;
   }
 
   /// Convert json body to map
-  Map<String, dynamic> get toMap => decode();
+  Map<String, dynamic> get toMap => json();
 
   /// Convert json body to list
-  List<dynamic> get toList => decode();
+  List<dynamic> get toList => json();
+
+  @override
+  String toString() => '$runtimeType{statusCode: $statusCode}';
 }

@@ -1,10 +1,6 @@
 import 'package:network/src/middleware.dart';
 
 import 'middlewares/encode_json_body.dart';
-import 'middlewares/default_errors.dart';
-
-typedef ExceptionDelegateCallback = void Function(dynamic error);
-typedef SuccessfulDelegateCallback = void Function();
 
 class NetworkSettings {
   NetworkSettings._();
@@ -17,17 +13,6 @@ class NetworkSettings {
 
   Map<String, String> _defaultHeaders = {};
 
-  @Deprecated('Usage Middleware.error instead')
-  ExceptionDelegateCallback exceptionDelegate = (error) {
-    throw defaultErrors().onError(error);
-  };
-  @Deprecated('Usage Middleware.response instead')
-  SuccessfulDelegateCallback successfulDelegate;
-
-  @deprecated
-  // ignore: deprecated_member_use_from_same_package
-  bool get hasSuccessfulDelegate => successfulDelegate != null;
-
   bool get hasUserAgent => _defaultHeaders[_userAgentHeader] != null;
 
   set userAgent(String userAgent) {
@@ -39,9 +24,6 @@ class NetworkSettings {
   }
 
   String get userAgent => _defaultHeaders[_userAgentHeader];
-
-  @Deprecated('Usage .userAgent = null instead')
-  void clearUserAgent() => _defaultHeaders.remove(_userAgentHeader);
 
   void addDefaultHeader(String name, String value) =>
       _defaultHeaders[name] = value;
@@ -58,9 +40,6 @@ class NetworkSettings {
   };
 
   Set<Middleware> get middleware => _middleware;
-
-  bool legacyDisabled = false;
-  void disableLegacy() => legacyDisabled = true;
 }
 
 final settings = NetworkSettings();

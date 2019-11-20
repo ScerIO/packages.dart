@@ -4,7 +4,7 @@ import 'package:network/src/response.dart';
 
 import 'network.dart';
 
-Future<T> head<T extends BinaryResponse>(
+Future<Response> head(
   url, {
   Map<String, String> headers,
   Map<String, dynamic> queryParameters = const {},
@@ -15,7 +15,7 @@ Future<T> head<T extends BinaryResponse>(
           queryParameters: queryParameters,
         ));
 
-Future<T> delete<T extends BinaryResponse>(
+Future<Response> delete(
   url, {
   Map<String, String> headers,
   Map<String, dynamic> queryParameters = const {},
@@ -26,7 +26,7 @@ Future<T> delete<T extends BinaryResponse>(
           queryParameters: queryParameters,
         ));
 
-Future<T> get<T extends BinaryResponse>(
+Future<Response> get(
   url, {
   Map<String, String> headers,
   Map<String, dynamic> queryParameters = const {},
@@ -37,7 +37,7 @@ Future<T> get<T extends BinaryResponse>(
           queryParameters: queryParameters,
         ));
 
-Future<T> patch<T extends BinaryResponse>(
+Future<Response> patch(
   url, {
   Map<String, String> headers,
   Object body,
@@ -52,7 +52,7 @@ Future<T> patch<T extends BinaryResponse>(
           queryParameters: queryParameters,
         ));
 
-Future<T> post<T extends BinaryResponse>(
+Future<Response> post(
   url, {
   Map<String, String> headers,
   Object body,
@@ -67,7 +67,7 @@ Future<T> post<T extends BinaryResponse>(
           queryParameters: queryParameters,
         ));
 
-Future<T> put<T extends BinaryResponse>(
+Future<Response> put(
   url, {
   Map<String, String> headers,
   Object body,
@@ -82,7 +82,7 @@ Future<T> put<T extends BinaryResponse>(
           queryParameters: queryParameters,
         ));
 
-Future<T> _withClient<T>(Future<T> fn(Network client)) async {
+Future<Response> _withClient<T>(Future<Response> fn(Network client)) async {
   var client = Network();
   try {
     return await fn(client);
