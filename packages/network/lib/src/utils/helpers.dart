@@ -11,8 +11,9 @@ T eachMiddlewareRequests<T extends Request>(
     middleware.fold<Request>(
       request,
       (req, middleware) {
-        if (middleware.on?.contains(req.method) ?? true) {
-          final result = middleware.onRequest?.call(req);
+        if (middleware.on?.contains(req.method) ??
+            true && middleware.onRequest != null) {
+          final result = middleware.onRequest(req);
           if (result.method != req.method) {
             throw Exception('Cannot set another http method to request!');
           }
@@ -31,8 +32,9 @@ T eachMiddlewareResponses<T extends Response>(
     middleware.fold<Response>(
       response,
       (res, middleware) {
-        if (middleware.on?.contains(res.request.method) ?? true) {
-          return middleware.onResponse?.call(res);
+        if (middleware.on?.contains(res.request.method) ??
+            true && middleware.onResponse != null) {
+          return middleware.onResponse(res);
         } else {
           return res;
         }
@@ -48,8 +50,9 @@ void eachMiddlewareErrors<T extends Object>(
   throw middleware.fold<Object>(
         error,
         (err, middleware) {
-          if (middleware.on?.contains(on) ?? true) {
-            return middleware.onError?.call(err);
+          if (middleware.on?.contains(on) ??
+              true && middleware.onError != null) {
+            return middleware.onError(err);
           } else {
             return err;
           }

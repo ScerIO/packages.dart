@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.9.1
+
+* Fixed error on empty middleware methods
+
 ## 0.9.0
 
 * Added optional http.Client argument `Network(http.Client())`
