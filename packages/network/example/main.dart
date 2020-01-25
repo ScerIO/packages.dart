@@ -1,5 +1,5 @@
 import 'package:network/hooks.dart' as network;
-import 'package:network/middlewares.dart';
+import 'package:network/interceptors.dart';
 
 /// HTTP 404
 class MyNotFoundException extends network.NetworkException {
@@ -8,9 +8,9 @@ class MyNotFoundException extends network.NetworkException {
 
 main() async {
   network.settings
-    ..middleware.addAll([
+    ..interceptors.addAll([
       defaultErrors(),
-      network.Middleware(
+      network.Interceptor(
         onRequest: (request) {
           print('\nrequest: ${request.url} \n');
           return request;
@@ -33,13 +33,13 @@ main() async {
     final getResponse = await network.get(
         'https://jsonplaceholder.typicode.com/comments',
         queryParameters: {'postId': 1});
-    print('body: ' + getResponse.toList[1]['body']);
+    print('body: ' + getResponse.asList[1]['body']);
 
     // Post request to api
     final postResponse = await network.post(
         'https://jsonplaceholder.typicode.com/todos',
         body: {'title': 'test'});
-    print('id: ' + postResponse.toMap['id']);
+    print('id: ' + postResponse.asMap['id']);
   }
   // Detect unavailable internet connection:
   // on SocketException - vm / flutter

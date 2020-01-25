@@ -1,6 +1,6 @@
-import 'package:network/src/middleware.dart';
+import 'package:network/src/interceptor.dart';
 
-import 'middlewares/encode_json_body.dart';
+import 'interceptors/encode_json_body.dart';
 
 class NetworkSettings {
   NetworkSettings._();
@@ -35,11 +35,11 @@ class NetworkSettings {
 
   Map<String, String> get defaultHeaders => Map.from(_defaultHeaders);
 
-  Set<Middleware> _middleware = {
+  Set<Interceptor> _interceptors = {
     encodeJsonBody(),
   };
 
-  Set<Middleware> get middleware => _middleware;
+  Set<Interceptor> get interceptors => _interceptors;
 }
 
 final settings = NetworkSettings();

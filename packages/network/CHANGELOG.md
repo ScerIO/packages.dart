@@ -3,6 +3,12 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.10.0-dev.2
+
+* `Middleware` renamed to `Interceptor`
+* Renamed `toMap` => `asMap`, `toList` -> `asList` in `Response`
+* Added `asString` in `Response`
+
 ## 0.10.0-dev.1
 
 * Removed legacy code

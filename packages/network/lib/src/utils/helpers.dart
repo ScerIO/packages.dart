@@ -1,11 +1,12 @@
 import 'package:meta/meta.dart';
 import 'package:network/hooks.dart';
+import 'package:network/src/interceptor.dart';
 import 'package:network/src/methods.dart';
 import 'package:network/src/request.dart';
 import 'package:network/src/response.dart';
 
-Request eachMiddlewareRequests(
-  Set<Middleware> middleware,
+Request eachInterceptorRequests(
+  Set<Interceptor> middleware,
   Request request,
 ) =>
     middleware.fold<Request>(
@@ -25,8 +26,8 @@ Request eachMiddlewareRequests(
     ) ??
     request;
 
-Response eachMiddlewareResponses(
-  Set<Middleware> middleware,
+Response eachInterceptorResponses(
+  Set<Interceptor> middleware,
   Response response,
 ) =>
     middleware.fold<Response>(
@@ -42,8 +43,8 @@ Response eachMiddlewareResponses(
     ) ??
     response;
 
-Object eachMiddlewareErrors(
-  Set<Middleware> middleware,
+Object eachInterceptorErrors(
+  Set<Interceptor> middleware,
   Object error, {
   @required HttpMethod on,
 }) {

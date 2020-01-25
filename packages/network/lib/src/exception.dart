@@ -2,7 +2,7 @@ import 'package:network/src/request.dart';
 import 'package:network/src/response.dart';
 
 class NetworkException implements Exception {
-  NetworkException(this.response);
+  const NetworkException(this.response);
 
   final Response response;
 

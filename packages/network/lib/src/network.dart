@@ -1,7 +1,7 @@
 import 'dart:convert' show Encoding;
 import 'package:http/http.dart' as http show Client, Request, Response;
 import 'package:meta/meta.dart';
-import 'package:network/src/middleware.dart';
+import 'package:network/src/interceptor.dart';
 import 'package:network/src/request.dart';
 
 import 'package:network/src/response.dart';
@@ -15,9 +15,9 @@ class Network {
   Network([http.Client client]) : client = client ?? http.Client();
   final http.Client client;
 
-  Set<Middleware> _middleware = {};
+  Set<Interceptor> _interceptors = {};
 
-  Set<Middleware> get middleware => _middleware;
+  Set<Interceptor> get interceptors => _interceptors;
 
   Future<Response> head(
     url, {
@@ -125,8 +125,8 @@ class Network {
     }
 
     try {
-      final request = eachMiddlewareRequests(
-        {...settings.middleware, ..._middleware},
+      final request = eachInterceptorRequests(
+        {...settings.interceptors, ..._interceptors},
         Request(
           headers: allHeaders,
           method: method,
@@ -146,8 +146,8 @@ class Network {
         encoding: request.encoding,
       );
 
-      Response response = eachMiddlewareResponses(
-        {...settings.middleware, ..._middleware},
+      Response response = eachInterceptorResponses(
+        {...settings.interceptors, ..._interceptors},
         Response(
           statusCode: httpResponse.statusCode,
           bytes: httpResponse.bodyBytes,
@@ -156,8 +156,8 @@ class Network {
       );
       return response;
     } catch (error) {
-      throw eachMiddlewareErrors(
-        {...settings.middleware, ..._middleware},
+      throw eachInterceptorErrors(
+        {...settings.interceptors, ..._interceptors},
         error,
         on: method,
       );

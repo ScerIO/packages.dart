@@ -19,8 +19,8 @@
 ## Key Features
 
 * Simple hooks for all http methods
-* Middlewares witch handling requests, responses and errors
-* Decode json from response (`Response.json()` / `Response.toMap` / `Response.toList`) 
+* Interceptors witch handling requests, responses and errors
+* Decode json from response (`Response.json()` / `Response.asMap` / `Response.asList`) 
 * Browser support
 
 ## Getting Started
@@ -46,11 +46,13 @@ final restResponse = await network.get(
   queryParameters: {'name': 'value'}
 );
 // Auto decode json response
-print(restResponse.toMap['title']);
+print(restResponse.asMap['title']);
 // Also available lists
-print(restResponse.toList[0]);
-// Or pure 
+print(restResponse.asList[0]);
+// Or object
 print(restResponse.json()); // returns Object 
+// Or pure string
+print(restResponse.asString);
 ``` 
 Get request Blob:
 ```dart
@@ -66,7 +68,7 @@ final postResponse = await network.post(
   'https://jsonplaceholder.typicode.com/todos',
   body: {'title': 'test'},
 );
-print(postResponse.toMap['id']);
+print(postResponse.asMap['id']);
 ```
 
 Handle exceptions:
@@ -80,11 +82,11 @@ try {
 
 Add middleware:
 ```dart
-import 'package:network/middlewares.dart';
+import 'package:network/interceptors.dart';
 
-network.settings.middleware.addAll([
+network.settings.interceptors.addAll([
   defaultErrors(),
-  network.Middleware(
+  network.Interceptor(
     onRequest: (request) {
       print('request on: ${request.url}');
       return request.copyWith(
@@ -105,8 +107,8 @@ network.settings.middleware.addAll([
   )
 ]);
 // Also can add middleware specify for client:
-final client = Network()..middleware.add(...);
-client.get(...) // Usages global (network.settings.middleware) and local (client) middlewares
+final client = Network()..interceptors.add(...);
+client.get(...) // Usages global (network.settings.interceptors) and local (client) interceptors
 ```
 
 And... all api docs [available here](https://pub.dartlang.org/documentation/network/latest/)

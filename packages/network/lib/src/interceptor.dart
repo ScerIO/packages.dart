@@ -4,8 +4,8 @@ import 'package:network/src/response.dart';
 
 import 'methods.dart';
 
-class Middleware {
-  const Middleware({
+class Interceptor {
+  const Interceptor({
     this.on,
     this.onRequest,
     this.onResponse,

@@ -5,6 +5,12 @@ import 'package:meta/meta.dart';
 import 'package:network/src/request.dart';
 
 class Response {
+  Response({
+    @required this.statusCode,
+    @required this.bytes,
+    @required this.request,
+  });
+
   /// Response status code
   final int statusCode;
 
@@ -12,13 +18,6 @@ class Response {
   final Uint8List bytes;
 
   final Request request;
-
-  /// Raw binary response
-  Response({
-    @required this.statusCode,
-    @required this.bytes,
-    @required this.request,
-  });
 
   Object _decodedJson;
 
@@ -48,10 +47,13 @@ class Response {
   }
 
   /// Convert json body to map
-  Map<String, dynamic> get toMap => json();
+  Map<String, dynamic> get asMap => json();
 
   /// Convert json body to list
-  List<dynamic> get toList => json();
+  List<dynamic> get asList => json();
+
+  /// Response as string
+  String get asString => utf8.decode(bytes);
 
   @override
   String toString() => '$runtimeType{statusCode: $statusCode}';
