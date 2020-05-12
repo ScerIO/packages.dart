@@ -26,15 +26,13 @@
 ## Getting Started
 
 ```dart
-// Simplify usage
 import 'package:network/network.dart';
 
+// hooks
 'https://jsonplaceholder.typicode.com/comments'.get(...);
 'https://jsonplaceholder.typicode.com/comments'.post(...);
 
-// Alternative usage
-import 'package:network/network.dart';
-
+// Client
 final client = NetworkClient();
 client.get(...);
 client.post(...);
@@ -73,7 +71,7 @@ Handle exceptions:
 ```dart
 try {
   await 'https://jsonplaceholder.typicode.com/todos/202'.get();
-} on network.NetworkException catch (error) {
+} on NetworkException catch (error) {
   print('Network exception called, status code: ${error.code}');
 }
 ```
@@ -84,7 +82,7 @@ import 'package:network/interceptors.dart';
 
 NetworkSettings().interceptors.addAll([
   defaultErrors(),
-  network.Interceptor(
+  Interceptor(
     onRequest: (request) {
       print('request on: ${request.url}');
       return request.copyWith(

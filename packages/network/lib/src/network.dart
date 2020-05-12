@@ -1,12 +1,6 @@
 import 'dart:convert' show Encoding;
 import 'package:http/http.dart' as http
-    show
-        Client,
-        Response,
-        BaseRequest,
-        Request,
-        MultipartRequest,
-        MultipartFile;
+    show Client, Response, BaseRequest, Request, MultipartRequest;
 import 'package:meta/meta.dart';
 import 'package:network/src/form_data.dart';
 import 'package:network/src/interceptor.dart';
@@ -21,6 +15,7 @@ import 'methods.dart';
 
 class NetworkClient {
   NetworkClient([http.Client client]) : client = client ?? http.Client();
+
   final http.Client client;
 
   Set<Interceptor> _interceptors = {};

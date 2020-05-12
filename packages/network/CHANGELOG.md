@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.10.0+1
+
+* Readme fixes
+
 ## 0.10.0
 
 * Fixed `Request.copyWith` [pull#5](https://github.com/rbcprolabs/packages.dart/pull/5)
