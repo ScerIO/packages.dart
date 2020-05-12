@@ -24,7 +24,7 @@ class Request {
   Request copyWith({
     Map<String, String> headers,
     Map<String, dynamic> queryParameters,
-    String url,
+    Uri url,
     Encoding encoding,
     Object body,
   }) =>
