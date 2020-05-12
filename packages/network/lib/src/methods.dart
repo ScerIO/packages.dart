@@ -7,20 +7,11 @@ enum HttpMethod {
   put,
 }
 
-String httpMethodString(HttpMethod method) {
-  switch (method) {
-    case HttpMethod.head:
-      return 'HEAD';
-    case HttpMethod.delete:
-      return 'DELETE';
-    case HttpMethod.get:
-      return 'GET';
-    case HttpMethod.path:
-      return 'PATH';
-    case HttpMethod.post:
-      return 'POST';
-    case HttpMethod.put:
-      return 'PUT';
-  }
-  return null;
-}
+Map<HttpMethod, String> httpMethodString = {
+  HttpMethod.head: 'HEAD',
+  HttpMethod.delete: 'DELETE',
+  HttpMethod.get: 'GET',
+  HttpMethod.path: 'PATH',
+  HttpMethod.post: 'POST',
+  HttpMethod.put: 'PUT',
+};

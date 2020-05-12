@@ -4,89 +4,86 @@ import 'package:network/src/response.dart';
 
 import 'network.dart';
 
-Future<Response> head(
-  url, {
-  Map<String, String> headers,
-  Map<String, dynamic> queryParameters = const {},
-}) =>
-    _withClient((client) => client.head(
-          url,
-          headers: headers,
-          queryParameters: queryParameters,
-        ));
-
-Future<Response> delete(
-  url, {
-  Map<String, String> headers,
-  Map<String, dynamic> queryParameters = const {},
-}) =>
-    _withClient((client) => client.delete(
-          url,
-          headers: headers,
-          queryParameters: queryParameters,
-        ));
-
-Future<Response> get(
-  url, {
-  Map<String, String> headers,
-  Map<String, dynamic> queryParameters = const {},
-}) =>
-    _withClient((client) => client.get(
-          url,
-          headers: headers,
-          queryParameters: queryParameters,
-        ));
-
-Future<Response> patch(
-  url, {
-  Map<String, String> headers,
-  Object body,
-  Encoding encoding,
-  Map<String, dynamic> queryParameters = const {},
-}) =>
-    _withClient((client) => client.patch(
-          url,
-          headers: headers,
-          body: body,
-          encoding: encoding,
-          queryParameters: queryParameters,
-        ));
-
-Future<Response> post(
-  url, {
-  Map<String, String> headers,
-  Object body,
-  Encoding encoding,
-  Map<String, dynamic> queryParameters = const {},
-}) =>
-    _withClient((client) => client.post(
-          url,
-          headers: headers,
-          body: body,
-          encoding: encoding,
-          queryParameters: queryParameters,
-        ));
-
-Future<Response> put(
-  url, {
-  Map<String, String> headers,
-  Object body,
-  Encoding encoding,
-  Map<String, dynamic> queryParameters = const {},
-}) =>
-    _withClient((client) => client.put(
-          url,
-          headers: headers,
-          body: body,
-          encoding: encoding,
-          queryParameters: queryParameters,
-        ));
-
-Future<Response> _withClient<T>(Future<Response> fn(Network client)) async {
-  var client = Network();
+Future<Response> _withClient<T>(
+    Future<Response> fn(NetworkClient client)) async {
+  var client = NetworkClient();
   try {
     return await fn(client);
   } finally {
     client.close();
   }
+}
+
+extension NetworkHooks on String {
+  Future<Response> head({
+    Map<String, String> headers,
+    Map<String, dynamic> queryParameters = const {},
+  }) =>
+      _withClient((client) => client.head(
+            this,
+            headers: headers,
+            queryParameters: queryParameters,
+          ));
+
+  Future<Response> delete({
+    Map<String, String> headers,
+    Map<String, dynamic> queryParameters = const {},
+  }) =>
+      _withClient((client) => client.delete(
+            this,
+            headers: headers,
+            queryParameters: queryParameters,
+          ));
+
+  Future<Response> get({
+    Map<String, String> headers,
+    Map<String, dynamic> queryParameters = const {},
+  }) =>
+      _withClient((client) => client.get(
+            this,
+            headers: headers,
+            queryParameters: queryParameters,
+          ));
+
+  Future<Response> patch({
+    Map<String, String> headers,
+    Object body,
+    Encoding encoding,
+    Map<String, dynamic> queryParameters = const {},
+  }) =>
+      _withClient((client) => client.patch(
+            this,
+            headers: headers,
+            body: body,
+            encoding: encoding,
+            queryParameters: queryParameters,
+          ));
+
+  Future<Response> post({
+    Map<String, String> headers,
+    Object body,
+    Encoding encoding,
+    Map<String, dynamic> queryParameters = const {},
+  }) =>
+      _withClient((client) => client.post(
+            this,
+            headers: headers,
+            body: body,
+            encoding: encoding,
+            queryParameters: queryParameters,
+          ));
+
+  Future<Response> put({
+    Map<String, String> headers,
+    Object body,
+    Encoding encoding,
+    Map<String, dynamic> queryParameters = const {},
+  }) =>
+      _withClient((client) => client.put(
+            this,
+            headers: headers,
+            body: body,
+            encoding: encoding,
+            queryParameters: queryParameters,
+          ));
 }

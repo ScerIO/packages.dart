@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'package:network/hooks.dart';
 import 'package:network/src/interceptor.dart';
 import 'package:network/src/methods.dart';
 import 'package:network/src/request.dart';

@@ -1,6 +1,14 @@
 import 'dart:convert' show Encoding;
-import 'package:http/http.dart' as http show Client, Request, Response;
+import 'package:http/http.dart' as http
+    show
+        Client,
+        Response,
+        BaseRequest,
+        Request,
+        MultipartRequest,
+        MultipartFile;
 import 'package:meta/meta.dart';
+import 'package:network/src/form_data.dart';
 import 'package:network/src/interceptor.dart';
 import 'package:network/src/request.dart';
 
@@ -11,8 +19,8 @@ import 'package:network/src/utils/serialize_query_params.dart';
 
 import 'methods.dart';
 
-class Network {
-  Network([http.Client client]) : client = client ?? http.Client();
+class NetworkClient {
+  NetworkClient([http.Client client]) : client = client ?? http.Client();
   final http.Client client;
 
   Set<Interceptor> _interceptors = {};
@@ -137,8 +145,8 @@ class Network {
         ),
       );
 
-      final http.Response httpResponse = await _sendUnstreamed(
-        httpMethodString(method),
+      final http.Response httpResponse = await _sendUnStreamed(
+        httpMethodString[method],
         request.url.toString() +
             serializeQueryParameters(request.queryParameters),
         body: request.body,
@@ -165,28 +173,42 @@ class Network {
   }
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
-  Future<http.Response> _sendUnstreamed(
+  Future<http.Response> _sendUnStreamed(
     String method,
-    url, {
+    String url, {
     Map<String, String> headers,
     body,
     Encoding encoding,
   }) async {
-    if (url is String) url = Uri.parse(url);
-    http.Request request = new http.Request(method, url);
+    final uri = Uri.parse(url);
+    http.BaseRequest request;
+    if (body is FormData) {
+      request = http.MultipartRequest(method, uri);
+      final multipartRequest = request as http.MultipartRequest;
+      multipartRequest.fields.addAll(body.fields);
+      multipartRequest.files.addAll(body.files);
+    } else {
+      request = http.Request(method, uri);
+      final simpleRequest = request as http.Request;
 
-    if (headers != null) request.headers.addAll(headers);
-    if (encoding != null) request.encoding = encoding;
-    if (body != null) {
-      if (body is String) {
-        request.body = body;
-      } else if (body is List) {
-        request.bodyBytes = body.cast<int>();
-      } else if (body is Map) {
-        request.bodyFields = body.cast<String, String>();
-      } else {
-        throw new ArgumentError('Invalid request body "$body".');
+      if (encoding != null) {
+        simpleRequest.encoding = encoding;
       }
+      if (body != null) {
+        if (body is String) {
+          simpleRequest.body = body;
+        } else if (body is List) {
+          simpleRequest.bodyBytes = body.cast<int>();
+        } else if (body is Map) {
+          simpleRequest.bodyFields = body.cast<String, String>();
+        } else {
+          throw new ArgumentError('Invalid request body "$body".');
+        }
+      }
+    }
+
+    if (headers != null) {
+      request.headers.addAll(headers);
     }
 
     return http.Response.fromStream(await client.send(request));

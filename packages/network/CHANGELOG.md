@@ -3,6 +3,84 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.10.0
+
+* Fixed `Request.copyWith` [pull#5](https://github.com/rbcprolabs/packages.dart/pull/5)
+* Removed import hooks
+* Now hooks is extension for String (`'myUrl'.get()` etc)
+* Added `FormData`, can be send from all network methods
+* Not recommended usage import `... as network`, see new examples in readme
+* Minimum dart sdk set to 2.6.0
+* Network settings available at `NetworkSettings()`
+* Migration guide
+
+before: 
+```dart
+import 'package:network/hooks.dart' as network;
+import 'package:network/interceptors.dart';
+
+main() async {
+  network.settings
+    ..interceptors.addAll([
+      defaultErrors(),
+      network.Interceptor(
+        onRequest: (request) {
+          print('\nrequest: ${request.url} \n');
+          return request;
+        },
+      )
+    ]);
+
+  try {
+    final getResponse = await network.get(
+        'https://jsonplaceholder.typicode.com/comments',
+        queryParameters: {'postId': 1});
+    print('body: ' + getResponse.asList[1]['body']);
+
+    // Post request to api
+    final postResponse = await network.post(
+        'https://jsonplaceholder.typicode.com/todos',
+        body: {'title': 'test'});
+    print('id: ' + postResponse.asMap['id']);
+  } catch (error) {}
+
+  // Or post binary
+  await network.post('https://jsonplaceholder.typicode.com/todos',
+      body: [0, 0, 0, 0, 0]);
+}
+```
+
+after:
+```dart
+import 'package:network/network.dart';
+import 'package:network/interceptors.dart';
+
+main() async {
+  NetworkSettings().interceptors.addAll([
+      defaultErrors(),
+      Interceptor(
+        onRequest: (request) {
+          print('\nrequest: ${request.url} \n');
+          return request;
+        },
+      )
+    ]);
+
+  try {
+    final getResponse = await 'https://jsonplaceholder.typicode.com/comments'.get(
+        queryParameters: {'postId': 1});
+    print('body: ' + getResponse.asList[1]['body']);
+
+    // Post request to api
+    final postResponse = await 'https://jsonplaceholder.typicode.com/todos'.post(body: {'title': 'test'});
+    print('id: ' + postResponse.asMap['id']);
+  } catch (error) {}
+
+  // Or post binary
+  await 'https://jsonplaceholder.typicode.com/todos'.post(body: [0, 0, 0, 0, 0]);
+}
+```
+
 ## 0.10.0-dev.2
 
 * `Middleware` renamed to `Interceptor`

@@ -41,5 +41,3 @@ class NetworkSettings {
 
   Set<Interceptor> get interceptors => _interceptors;
 }
-
-final settings = NetworkSettings();

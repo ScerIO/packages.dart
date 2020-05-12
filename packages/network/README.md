@@ -27,13 +27,15 @@
 
 ```dart
 // Simplify usage
-import 'package:network/hooks.dart' as network;
-network.get(...);
-network.post(...);
+import 'package:network/network.dart';
+
+'https://jsonplaceholder.typicode.com/comments'.get(...);
+'https://jsonplaceholder.typicode.com/comments'.post(...);
 
 // Alternative usage
 import 'package:network/network.dart';
-final client = Network();
+
+final client = NetworkClient();
 client.get(...);
 client.post(...);
 client.close();
@@ -41,8 +43,7 @@ client.close();
 
 Get request:
 ```dart
-final restResponse = await network.get(
-  'https://jsonplaceholder.typicode.com/todos/1',
+final restResponse = await 'https://jsonplaceholder.typicode.com/todos/1'.get(
   queryParameters: {'name': 'value'}
 );
 // Auto decode json response
@@ -56,16 +57,13 @@ print(restResponse.asString);
 ``` 
 Get request Blob:
 ```dart
-final blobResponse = await network.get(
-  'https://via.placeholder.com/300',
-);
+final blobResponse = await 'https://via.placeholder.com/300'.get();
 print(blobResponse.bytes);
 ```
 
 Post request to API:
 ```dart
-final postResponse = await network.post(
-  'https://jsonplaceholder.typicode.com/todos',
+final postResponse = await 'https://jsonplaceholder.typicode.com/todos'.post(
   body: {'title': 'test'},
 );
 print(postResponse.asMap['id']);
@@ -74,7 +72,7 @@ print(postResponse.asMap['id']);
 Handle exceptions:
 ```dart
 try {
-  await network.get('https://jsonplaceholder.typicode.com/todos/202');
+  await 'https://jsonplaceholder.typicode.com/todos/202'.get();
 } on network.NetworkException catch (error) {
   print('Network exception called, status code: ${error.code}');
 }
@@ -84,7 +82,7 @@ Add middleware:
 ```dart
 import 'package:network/interceptors.dart';
 
-network.settings.interceptors.addAll([
+NetworkSettings().interceptors.addAll([
   defaultErrors(),
   network.Interceptor(
     onRequest: (request) {
@@ -108,7 +106,7 @@ network.settings.interceptors.addAll([
 ]);
 // Also can add middleware specify for client:
 final client = Network()..interceptors.add(...);
-client.get(...) // Usages global (network.settings.interceptors) and local (client) interceptors
+client.get(...) // Usages global (NetworkSettings().interceptors) and local (client) interceptors
 ```
 
 And... all api docs [available here](https://pub.dartlang.org/documentation/network/latest/)
