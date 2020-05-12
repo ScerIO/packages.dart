@@ -65,10 +65,6 @@ extension DateUtils on DateTime {
     return beginningNextMonth.subtract(Duration(days: 1));
   }
 
-  /// Whether or not two times are on the same day.
-  bool isSameDay(DateTime a, DateTime b) =>
-      a.year == b.year && a.month == b.month && a.day == b.day;
-
   DateTime get previousMonth {
     var year = this.year;
     var month = this.month;
@@ -132,4 +128,8 @@ extension DateUtils on DateTime {
     var result = max.weekday % 7 - min.weekday % 7 >= 0;
     return result;
   }
+
+  /// Whether or not two times are on the same day.
+  static bool isSameDay(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
 }

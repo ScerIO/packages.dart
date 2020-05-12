@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.1.1
+
+* Fixed `isSameDay` in date utils
+
 ## 0.1.0
 
 * Rewrite with extension methods

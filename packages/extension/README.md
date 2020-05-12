@@ -64,7 +64,7 @@ DateTime(2017, 3).lastDayOfMonth; // DateTime(2017, 3, 31)
 DateTime(2017, 3).daysInMonth; // [DateTime(2017, 3, 1), DateTime(2017, 3, 2), ...]
 
 
-assert(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6));
+assert(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)));
 
 // and more see api docs
 ```
@@ -85,7 +85,7 @@ final AnyEnum one = enumValueByString(AnyEnum.values, 'one'); // Returns AnyEnum
 final AnyEnum one = enumValueByString(AnyEnum.values, 'qwerty', orElse: () => AnyEnum.two); // Returns AnyEnum.two
 
 // Enum with value 
-// assert(Meter.HIGH, 100);
+// assert(Meter.HIGH == 100);
 // assert(Meter.HIGH is Meter);
 class Meter<int> extends Enum<int> {
   const Meter(int val) : super (val);
