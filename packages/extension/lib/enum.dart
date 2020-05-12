@@ -12,7 +12,7 @@
 ///  static const Meter LOW = const Meter(10);
 /// }
 ///
-/// //and usage:
+/// // and usage:
 ///
 /// assert(Meter.HIGH, 100);
 /// assert(Meter.HIGH is Meter);
@@ -29,7 +29,7 @@ abstract class Enum<T> {
 }
 
 /// Throws if [values] or [key] gives null
-class EnumValueInvalideParamsException implements Exception {}
+class EnumValueInvalidParamsException implements Exception {}
 
 /// Returns enum value by string
 ///
@@ -43,8 +43,14 @@ class EnumValueInvalideParamsException implements Exception {}
 ///
 /// assert(enumValueByString(Enum.values, 'one'), Enum.one);
 /// ```
-T enumValueByString<T>(List<T> values, String key) {
-  if (values == null || key == null) throw EnumValueInvalideParamsException();
+T enumValueByString<T>(List<T> values, String key, {T Function() orElse}) {
+  if (values == null || key == null) {
+    if (orElse != null) {
+      orElse();
+    } else {
+      throw EnumValueInvalidParamsException();
+    }
+  }
 
   for (T item in values) {
     // Remove Enum name from enum item

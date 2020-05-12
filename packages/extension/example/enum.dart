@@ -7,9 +7,8 @@ enum AnyEnum {
 }
 
 main() {
-  final AnyEnum findedvalue = enumValueByString(AnyEnum.values, 'two');
-  print(findedvalue == AnyEnum.two);
+  final AnyEnum findValue = enumValueByString(AnyEnum.values, 'two');
+  print(findValue == AnyEnum.two);
 
-  enumValueByString(AnyEnum.values, 'bed value') ??
-      print('Im successfuly handled');
+  enumValueByString(AnyEnum.values, 'bed value') ?? print('Im success handled');
 }

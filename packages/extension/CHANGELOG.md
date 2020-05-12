@@ -3,6 +3,13 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.1.0
+
+* Rewrite with extension methods
+* Added date with `isToday` & `isYesterday` extension methods
+* in `enumValueByString` added `orElse` property
+* added `plural` in strings
+
 ## 0.0.5
 
 * Added operator `==` to `Enum<T>`

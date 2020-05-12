@@ -197,7 +197,7 @@ class NetworkClient {
         } else if (body is Map) {
           simpleRequest.bodyFields = body.cast<String, String>();
         } else {
-          throw new ArgumentError('Invalid request body "$body".');
+          throw ArgumentError('Invalid request body "$body".');
         }
       }
     }

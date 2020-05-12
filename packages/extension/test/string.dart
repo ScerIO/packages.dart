@@ -3,8 +3,8 @@ import 'package:test/test.dart';
 
 main() {
   test('capitalizeFirstLetter', () {
-    expect(capitalizeFirstLetter('test'), equals('Test'));
-    expect(capitalizeFirstLetter('Test'), equals('Test'));
-    expect(capitalizeFirstLetter('TEst'), equals('TEst'));
+    expect('test'.capitalizeFirstLetter(), equals('Test'));
+    expect('Test'.capitalizeFirstLetter(), equals('Test'));
+    expect('TEst'.capitalizeFirstLetter(), equals('TEst'));
   });
 }
