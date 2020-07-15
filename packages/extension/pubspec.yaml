@@ -6,5 +6,9 @@ homepage: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/extens
 environment:
   sdk: '>=2.6.0 <3.0.0'
 
+dependencies:
+  flutter:
+    sdk: flutter
+
 dev_dependencies:
   test: ^1.5.3
