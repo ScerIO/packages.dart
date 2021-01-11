@@ -43,10 +43,10 @@ class EnumValueInvalidParamsException implements Exception {}
 ///
 /// assert(enumValueByString(Enum.values, 'one'), Enum.one);
 /// ```
-T enumValueByString<T>(List<T> values, String key, {T Function() orElse}) {
+T? enumValueByString<T>(List<T>? values, String? key, {T Function()? orElse}) {
   if (values == null || key == null) {
     if (orElse != null) {
-      orElse();
+      return orElse();
     } else {
       throw EnumValueInvalidParamsException();
     }
