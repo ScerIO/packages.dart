@@ -3,6 +3,10 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.2.0-nullsafety.0
+
+* Added nullsafety [pull#8](https://github.com/rbcprolabs/packages.dart/pull/8)
+
 ## 0.1.1
 
 * Fixed `isSameDay` in date utils
