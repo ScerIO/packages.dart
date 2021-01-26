@@ -1,6 +1,6 @@
 name: extension
 description: Package including lot helpers for easy developing on dart language
-version: 0.1.1
+version: 0.2.0-nullsafety.0
 homepage: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/extension
 
 environment:
