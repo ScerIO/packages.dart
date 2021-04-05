@@ -1,14 +1,12 @@
 name: network
 description: Package including hooks for easy works with http package in dart
-version: 0.10.0+1
+version: 1.0.0-nullsafety.0
 homepage: https://github.com/rbcprolabs/dart_plugins/tree/master/packages/network
 
 environment:
-  sdk: '>=2.6.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  http: ^0.12.1
-  meta: ^1.1.0
-
+  http: ^0.13.1
 dev_dependencies:
-  test: ^1.5.3
+  test: ^1.16.8

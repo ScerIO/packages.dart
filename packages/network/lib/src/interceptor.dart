@@ -14,11 +14,11 @@ class Interceptor {
 
   /// Will be applied only to http methods of a certain type
   /// By default (null) appends to all methods
-  final Set<HttpMethod> on;
+  final Set<HttpMethod>? on;
 
-  final Request Function(Request request) onRequest;
+  final Request Function(Request request)? onRequest;
 
-  final Response Function(Response response) onResponse;
+  final Response Function(Response response)? onResponse;
 
-  final Object Function(Object error) onError;
+  final Object Function(Object error)? onError;
 }

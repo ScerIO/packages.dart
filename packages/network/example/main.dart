@@ -31,12 +31,12 @@ main() async {
   try {
     final getResponse = await 'https://jsonplaceholder.typicode.com/comments'
         .get(queryParameters: {'postId': 1});
-    print('body: ' + getResponse.asList[1]['body']);
+    print('body: ' + getResponse.asList![1]['body']);
 
     // Post request to api
     final postResponse = await 'https://jsonplaceholder.typicode.com/todos'
         .post(body: {'title': 'test'});
-    print('id: ' + postResponse.asMap['id']);
+    print('id: ' + postResponse.asMap!['id']);
   }
   // Detect unavailable internet connection:
   // on SocketException - vm / flutter

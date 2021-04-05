@@ -16,7 +16,7 @@ Future<Response> _withClient<T>(
 
 extension NetworkHooks on String {
   Future<Response> head({
-    Map<String, String> headers,
+    Map<String, String>? headers,
     Map<String, dynamic> queryParameters = const {},
   }) =>
       _withClient((client) => client.head(
@@ -26,7 +26,7 @@ extension NetworkHooks on String {
           ));
 
   Future<Response> delete({
-    Map<String, String> headers,
+    Map<String, String>? headers,
     Map<String, dynamic> queryParameters = const {},
   }) =>
       _withClient((client) => client.delete(
@@ -36,7 +36,7 @@ extension NetworkHooks on String {
           ));
 
   Future<Response> get({
-    Map<String, String> headers,
+    Map<String, String>? headers,
     Map<String, dynamic> queryParameters = const {},
   }) =>
       _withClient((client) => client.get(
@@ -46,9 +46,9 @@ extension NetworkHooks on String {
           ));
 
   Future<Response> patch({
-    Map<String, String> headers,
-    Object body,
-    Encoding encoding,
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
     Map<String, dynamic> queryParameters = const {},
   }) =>
       _withClient((client) => client.patch(
@@ -60,9 +60,9 @@ extension NetworkHooks on String {
           ));
 
   Future<Response> post({
-    Map<String, String> headers,
-    Object body,
-    Encoding encoding,
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
     Map<String, dynamic> queryParameters = const {},
   }) =>
       _withClient((client) => client.post(
@@ -74,9 +74,9 @@ extension NetworkHooks on String {
           ));
 
   Future<Response> put({
-    Map<String, String> headers,
-    Object body,
-    Encoding encoding,
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
     Map<String, dynamic> queryParameters = const {},
   }) =>
       _withClient((client) => client.put(

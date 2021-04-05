@@ -1,7 +1,6 @@
 import 'dart:convert' show Encoding;
 import 'package:http/http.dart' as http
     show Client, Response, BaseRequest, Request, MultipartRequest;
-import 'package:meta/meta.dart';
 import 'package:network/src/form_data.dart';
 import 'package:network/src/interceptor.dart';
 import 'package:network/src/request.dart';
@@ -14,7 +13,7 @@ import 'package:network/src/utils/serialize_query_params.dart';
 import 'methods.dart';
 
 class NetworkClient {
-  NetworkClient([http.Client client]) : client = client ?? http.Client();
+  NetworkClient([http.Client? client]) : client = client ?? http.Client();
 
   final http.Client client;
 
@@ -24,7 +23,7 @@ class NetworkClient {
 
   Future<Response> head(
     url, {
-    Map<String, String> headers,
+    Map<String, String>? headers,
     Map<String, dynamic> queryParameters = const {},
   }) {
     return send(
@@ -37,7 +36,7 @@ class NetworkClient {
 
   Future<Response> delete(
     url, {
-    Map<String, String> headers,
+    Map<String, String>? headers,
     Map<String, dynamic> queryParameters = const {},
   }) {
     return send(
@@ -50,7 +49,7 @@ class NetworkClient {
 
   Future<Response> get(
     url, {
-    Map<String, String> headers,
+    Map<String, String>? headers,
     Map<String, dynamic> queryParameters = const {},
   }) {
     return send(
@@ -63,9 +62,9 @@ class NetworkClient {
 
   Future<Response> patch(
     url, {
-    Map<String, String> headers,
-    Object body,
-    Encoding encoding,
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
     Map<String, dynamic> queryParameters = const {},
   }) {
     return send(
@@ -80,9 +79,9 @@ class NetworkClient {
 
   Future<Response> post(
     url, {
-    Map<String, String> headers,
-    Object body,
-    Encoding encoding,
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
     Map<String, dynamic> queryParameters = const {},
   }) {
     return send(
@@ -97,9 +96,9 @@ class NetworkClient {
 
   Future<Response> put(
     url, {
-    Map<String, String> headers,
-    Object body,
-    Encoding encoding,
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
     Map<String, dynamic> queryParameters = const {},
   }) {
     return send(
@@ -114,10 +113,10 @@ class NetworkClient {
 
   Future<Response> send(
     url, {
-    @required HttpMethod method,
-    Map<String, String> headers,
-    Object body,
-    Encoding encoding,
+    required HttpMethod method,
+    Map<String, String>? headers,
+    Object? body,
+    Encoding? encoding,
     Map<String, dynamic> queryParameters = const {},
   }) async {
     assert(url is Uri || url is String);
@@ -169,21 +168,21 @@ class NetworkClient {
 
   /// Sends a non-streaming [Request] and returns a non-streaming [Response].
   Future<http.Response> _sendUnStreamed(
-    String method,
+    String? method,
     String url, {
-    Map<String, String> headers,
+    Map<String, String>? headers,
     body,
-    Encoding encoding,
+    Encoding? encoding,
   }) async {
     final uri = Uri.parse(url);
     http.BaseRequest request;
     if (body is FormData) {
-      request = http.MultipartRequest(method, uri);
+      request = http.MultipartRequest(method!, uri);
       final multipartRequest = request as http.MultipartRequest;
       multipartRequest.fields.addAll(body.fields);
       multipartRequest.files.addAll(body.files);
     } else {
-      request = http.Request(method, uri);
+      request = http.Request(method!, uri);
       final simpleRequest = request as http.Request;
 
       if (encoding != null) {

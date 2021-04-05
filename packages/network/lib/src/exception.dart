@@ -6,9 +6,9 @@ class NetworkException implements Exception {
 
   final Response response;
 
-  Request get request => response?.request;
+  Request get request => response.request;
 
-  int get code => response?.statusCode;
+  int get code => response.statusCode;
 
   @override
   String toString() => '$runtimeType{code: $code}';

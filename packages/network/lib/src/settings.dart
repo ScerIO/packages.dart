@@ -15,7 +15,7 @@ class NetworkSettings {
 
   bool get hasUserAgent => _defaultHeaders[_userAgentHeader] != null;
 
-  set userAgent(String userAgent) {
+  set userAgent(String? userAgent) {
     if (userAgent == null) {
       _defaultHeaders.remove(_userAgentHeader);
     } else {
@@ -23,7 +23,7 @@ class NetworkSettings {
     }
   }
 
-  String get userAgent => _defaultHeaders[_userAgentHeader];
+  String? get userAgent => _defaultHeaders[_userAgentHeader];
 
   void addDefaultHeader(String name, String value) =>
       _defaultHeaders[name] = value;

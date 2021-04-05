@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'package:network/src/interceptor.dart';
 import 'package:network/src/methods.dart';
 import 'package:network/src/request.dart';
@@ -13,7 +12,7 @@ Request eachInterceptorRequests(
       (req, middleware) {
         if ((middleware.on?.contains(req.method) ?? true) &&
             middleware.onRequest != null) {
-          final result = middleware.onRequest(req);
+          final result = middleware.onRequest!(req);
           if (result.method != req.method) {
             throw Exception('Cannot set another http method to request!');
           }
@@ -22,8 +21,7 @@ Request eachInterceptorRequests(
           return req;
         }
       },
-    ) ??
-    request;
+    );
 
 Response eachInterceptorResponses(
   Set<Interceptor> middleware,
@@ -34,29 +32,26 @@ Response eachInterceptorResponses(
       (res, middleware) {
         if ((middleware.on?.contains(res.request.method) ?? true) &&
             middleware.onResponse != null) {
-          return middleware.onResponse(res);
+          return middleware.onResponse!(res);
         } else {
           return res;
         }
       },
-    ) ??
-    response;
+    );
 
 Object eachInterceptorErrors(
   Set<Interceptor> middleware,
   Object error, {
-  @required HttpMethod on,
+  required HttpMethod on,
 }) {
   return middleware.fold<Object>(
-        error,
-        (err, middleware) {
-          if ((middleware.on?.contains(on) ?? true) &&
-              middleware.onError != null) {
-            return middleware.onError(err);
-          } else {
-            return err;
-          }
-        },
-      ) ??
-      error;
+    error,
+    (err, middleware) {
+      if ((middleware.on?.contains(on) ?? true) && middleware.onError != null) {
+        return middleware.onError!(err);
+      } else {
+        return err;
+      }
+    },
+  );
 }

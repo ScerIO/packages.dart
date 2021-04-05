@@ -1,14 +1,13 @@
 import 'dart:convert' show jsonDecode, utf8;
 import 'dart:typed_data' show Uint8List;
 
-import 'package:meta/meta.dart';
 import 'package:network/src/request.dart';
 
 class Response {
   Response({
-    @required this.statusCode,
-    @required this.bytes,
-    @required this.request,
+    required this.statusCode,
+    required this.bytes,
+    required this.request,
   });
 
   /// Response status code
@@ -19,7 +18,7 @@ class Response {
 
   final Request request;
 
-  Object _decodedJson;
+  Object? _decodedJson;
 
   /// Parses the body bytes and returns the resulting Json object.
   ///
@@ -32,13 +31,9 @@ class Response {
   ///
   /// Shorthand for `json.decode`. Useful if a local variable shadows the global
   /// [json] constant.
-  Object json({Object Function(Object, Object) reviver}) {
+  Object? json({Object Function(Object?, Object?)? reviver}) {
     if (_decodedJson == null) {
       final String json = utf8.decode(bytes);
-
-      if (json == null) {
-        throw Exception('JSON decoding error');
-      }
 
       _decodedJson = jsonDecode(json, reviver: reviver);
     }
@@ -47,10 +42,10 @@ class Response {
   }
 
   /// Convert json body to map
-  Map<String, dynamic> get asMap => json();
+  Map<String, dynamic>? get asMap => json() as Map<String, dynamic>?;
 
   /// Convert json body to list
-  List<dynamic> get asList => json();
+  List<dynamic>? get asList => json() as List<dynamic>?;
 
   /// Response as string
   String get asString => utf8.decode(bytes);
