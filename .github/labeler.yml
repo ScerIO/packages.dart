@@ -1,0 +1,11 @@
+'p: extension':
+  - packages/extension/**/*
+
+'p: network':
+  - packages/network/**/*
+
+'p: register':
+  - packages/register/**/*
+
+'p: universal_file':
+  - packages/universal_file/**/*
