@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "internet_file"
+		},
+		{
+			"path": "extension"
+		},
+		{
+			"path": "network"
+		},
+		{
+			"path": "register"
+		},
+		{
+			"path": "universal_file"
+		}
+	],
+	"settings": {}
+}

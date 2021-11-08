@@ -8,9 +8,8 @@ extension StringUtils on String {
   /// ```dart
   /// assert('test'.capitalizeFirstLetter(), 'Test');
   /// ```
-  String capitalizeFirstLetter() => this.isNotEmpty
-      ? '${this[0].toUpperCase()}${this.substring(1)}'
-      : this;
+  String capitalizeFirstLetter() =>
+      this.isNotEmpty ? '${this[0].toUpperCase()}${this.substring(1)}' : this;
 
   /// Returns true if string contains email
   bool get isEmail => _emailRegularExpression.hasMatch(this.toLowerCase());

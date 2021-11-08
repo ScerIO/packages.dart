@@ -57,6 +57,6 @@ void main() {
       orElse: () => AnyEnum.two); // Returns AnyEnum.two
 
 // Enum with value
-assert(Meter.HIGH == 100);
-assert(Meter.HIGH is Meter);
+  assert(Meter.HIGH == 100);
+  assert(Meter.HIGH is Meter);
 }

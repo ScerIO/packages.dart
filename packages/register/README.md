@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/rbcprolabs/dart_plugins/master/packages/register/media/hero.png" alt="Logo" width="100%" />
+<img src="https://raw.githubusercontent.com/rbcprolabs/packages.dart/master/packages/register/media/hero.png" alt="Logo" width="100%" />
 
 <p align="center">Package for consistently representing identifiers, usually in a code generation setting.</p>
 

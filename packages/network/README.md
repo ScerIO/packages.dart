@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/rbcprolabs/dart_plugins/master/packages/network/media/hero.png" alt="Logo" width="100%" />
+<img src="https://raw.githubusercontent.com/rbcprolabs/packages.dart/master/packages/network/media/hero.png" alt="Logo" width="100%" />
 
 <p align="center">Package including hooks for easy works with http package in <a href="https://www.dartlang.org/" target="_blank">dart</a>.</p>
 

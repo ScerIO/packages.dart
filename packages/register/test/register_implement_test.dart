@@ -1,6 +1,7 @@
 import 'dart:convert';
-import 'package:test/test.dart';
+
 import 'package:register/register.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('id methods on NoOpNoOpRegister', () {

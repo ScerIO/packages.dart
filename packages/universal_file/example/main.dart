@@ -2,7 +2,7 @@ import 'package:universal_file/universal_file.dart';
 
 // And usage anywhere with backward capability!
 main() async {
-  final object = 'file';
+  const object = 'file';
 
   try {
     final file = File('$object.txt');

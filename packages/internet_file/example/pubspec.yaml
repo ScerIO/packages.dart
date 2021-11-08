@@ -1,0 +1,14 @@
+name: internet_file_example
+description: A simple command-line application.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=2.14.3 <3.0.0'
+
+dependencies:
+  internet_file:
+    path: ../
+
+dev_dependencies:
+  lints: ^1.0.0
