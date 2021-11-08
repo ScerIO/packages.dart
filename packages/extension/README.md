@@ -3,7 +3,7 @@
 <p align="center">Package including lot helpers for easy developing on <a href="https://www.dartlang.org/" target="_blank">dart</a> language.</p>
 
 <p align="center">
-  <a href="https://pub.dartlang.org/packages/extension">
+  <a href="https://pub.dev/packages/extension">
     <img src="https://img.shields.io/pub/v/extension.svg"
          alt="Pub">
   </a>

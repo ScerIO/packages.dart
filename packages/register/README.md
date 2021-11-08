@@ -3,7 +3,7 @@
 <p align="center">Package for consistently representing identifiers, usually in a code generation setting.</p>
 
 <p align="center">
-  <a href="https://pub.dartlang.org/packages/register">
+  <a href="https://pub.dev/packages/register">
     <img src="https://img.shields.io/pub/v/register.svg"
          alt="Pub">
   </a>
@@ -53,7 +53,7 @@ An library function accepts either snake or any camel and returns a new Id:
 var id = idFromString('testName');
 ```
 
-And... api reference [available here](https://pub.dartlang.org/documentation/register/latest/)
+And... api reference [available here](https://pub.dev/documentation/register/latest/)
 
 ## Credits
 This software is cloning package incompatible with Dart 2:

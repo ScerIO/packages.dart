@@ -1,7 +1,7 @@
 <h2 align="center">A cross-platform File & Directory that works in all platforms (browsers, mobile, desktop, and server-side)</h2>
 <br />
 <p align="center">
-  <a href="https://pub.dartlang.org/packages/universal_file">
+  <a href="https://pub.dev/packages/universal_file">
     <img src="https://img.shields.io/pub/v/universal_file.svg"
          alt="Pub">
   </a>
@@ -41,7 +41,7 @@ try {
 }
 ```
 
-Full api reference [available here](https://pub.dartlang.org/documentation/register/latest/)
+Full api reference [available here](https://pub.dev/documentation/register/latest/)
 
 ## Credits
 This software is decomposition of [universal_io] (Removed all except FileSystem):

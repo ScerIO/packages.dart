@@ -3,7 +3,7 @@
 <h2 align="center">A internet file getter (also optional downloader) that works in all platforms (browsers, mobile, desktop, and server-side)</h2>
 <br />
 <p align="center">
-  <a href="https://pub.dartlang.org/packages/internet_file">
+  <a href="https://pub.dev/packages/internet_file">
     <img src="https://img.shields.io/pub/v/internet_file.svg"
          alt="Pub">
   </a>
@@ -100,7 +100,7 @@ InternetFile.get params
 | storage           | Implements of `InternetFileStorage` with save & find local methods for saving files  | optional | -       |
 | storageAdditional | Additional args for pass to `InternetFileStorage` implementation passed in `storage` | optional | {}      |
 
-Full api reference [available here](https://pub.dartlang.org/documentation/register/latest/)
+Full api reference [available here](https://pub.dev/documentation/register/latest/)
 
 ## Credits
 Inspired by [flutter_cache_manager](https://pub.dev/packages/flutter_cache_manager), but make for support all platforms

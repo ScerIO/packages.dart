@@ -3,7 +3,7 @@
 <p align="center">Package including hooks for easy works with http package in <a href="https://www.dartlang.org/" target="_blank">dart</a>.</p>
 
 <p align="center">
-  <a href="https://pub.dartlang.org/packages/network">
+  <a href="https://pub.dev/packages/network">
     <img src="https://img.shields.io/pub/v/network.svg"
          alt="Pub">
   </a>
@@ -107,8 +107,8 @@ final client = Network()..interceptors.add(...);
 client.get(...) // Usages global (NetworkSettings().interceptors) and local (client) interceptors
 ```
 
-And... all api docs [available here](https://pub.dartlang.org/documentation/network/latest/)
+And... all api docs [available here](https://pub.dev/documentation/network/latest/)
 
 ## Credits
 This software uses the following open source packages:
-* [http](https://pub.dartlang.org/packages/http)
+* [http](https://pub.dev/packages/http)
