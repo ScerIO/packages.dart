@@ -25,7 +25,7 @@ Import
 ```dart
 import 'package:extension/extension.dart';
 
-// Or by entity. Available: date, enum, string
+// Or by entity. Available: string, date, list, enum
 import 'package:extension/<ENTITY NAME>.dart';
 ``` 
 
@@ -54,6 +54,9 @@ DateTime.now().isToday; // return bool
 // Is yesterday
 DateTime.now().isYesterday; // return bool
 
+// Is yesterday
+DateTime.now().isTomorrow; // return bool
+
 // First day of month
 DateTime(2018, 9, 30).firstDayOfMonth; // returns DateTime(2018, 9, 1)
 
@@ -65,24 +68,20 @@ DateTime(2017, 3).daysInMonth; // [DateTime(2017, 3, 1), DateTime(2017, 3, 2), .
 
 
 assert(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)));
+```
 
-// and more see api docs
+### List
+```dart
+import 'package:extension/list.dart';
+
+// Split list by chunks
+[1, 2, 3, 4, 5, 6, 7, 8, 9].chunks(2); // => [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
 ```
 
 ### Enum
 
 ```dart
 import 'package:extension/enum.dart';
-
-// Enum value by string
-enum AnyEnum {
-  one,
-  two,
-  three,
-}
-
-final AnyEnum one = enumValueByString(AnyEnum.values, 'one'); // Returns AnyEnum.one
-final AnyEnum one = enumValueByString(AnyEnum.values, 'qwerty', orElse: () => AnyEnum.two); // Returns AnyEnum.two
 
 // Enum with value 
 // assert(Meter.HIGH == 100);
@@ -93,6 +92,17 @@ class Meter<int> extends Enum<int> {
   static const Meter HIGH = const Meter(100);
   static const Meter MIDDLE = const Meter(50);
   static const Meter LOW = const Meter(10);
+}
+
+// Enum value by string
+// Deprecated! Usage dart 2.15 native support instead
+final AnyEnum one = enumValueByString(AnyEnum.values, 'one'); // Returns AnyEnum.one
+final AnyEnum one = enumValueByString(AnyEnum.values, 'qwerty', orElse: () => AnyEnum.two); // Returns AnyEnum.two
+
+enum AnyEnum {
+  one,
+  two,
+  three,
 }
 ``` 
 

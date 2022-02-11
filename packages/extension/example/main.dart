@@ -1,11 +1,5 @@
 import 'package:extension/extension.dart';
 
-enum AnyEnum {
-  one,
-  two,
-  three,
-}
-
 class Meter<int> extends Enum<int> {
   const Meter(int val) : super(val);
 
@@ -16,6 +10,7 @@ class Meter<int> extends Enum<int> {
 
 void main() {
   /* String */
+
   // Capitalize first letter
   'test'.capitalizeFirstLetter(); // return Test
 
@@ -30,33 +25,33 @@ void main() {
 
   /* Date */
 
-// Is today
+  // Is today
   DateTime.now().isToday; // return bool
 
-// Is yesterday
+  // Is yesterday
   DateTime.now().isYesterday; // return bool
 
-// First day of month
+  // First day of month
   DateTime(2018, 9, 30).firstDayOfMonth; // returns DateTime(2018, 9, 1)
 
-// Last day of month
+  // Last day of month
   DateTime(2017, 3).lastDayOfMonth; // DateTime(2017, 3, 31)
 
-// All days in month, DateTime array
+  // All days in month, DateTime array
   DateTime(2017, 3)
       .daysInMonth; // [DateTime(2017, 3, 1), DateTime(2017, 3, 2), ...]
 
   assert(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)));
 
+  /* List */
+
+  // Split list by chunks
+  [1, 2, 3, 4, 5, 6, 7, 8, 9].chunks(2);
+  // => [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
+
   /* Enum */
 
-// Enum value by string
-
-  enumValueByString(AnyEnum.values, 'one'); // Returns AnyEnum.one
-  enumValueByString(AnyEnum.values, 'qwerty',
-      orElse: () => AnyEnum.two); // Returns AnyEnum.two
-
-// Enum with value
+  // Enum with value
   assert(Meter.HIGH == 100);
   assert(Meter.HIGH is Meter);
 }

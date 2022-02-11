@@ -28,9 +28,6 @@ abstract class Enum<T> {
   bool operator ==(dynamic other) => other is Enum && other.value == value;
 }
 
-/// Throws if [values] or [key] gives null
-class EnumValueInvalidParamsException implements Exception {}
-
 /// Returns enum value by string
 ///
 /// Example:
@@ -43,6 +40,7 @@ class EnumValueInvalidParamsException implements Exception {}
 ///
 /// assert(enumValueByString(Enum.values, 'one'), Enum.one);
 /// ```
+@Deprecated('Dart 2.15 support getting enum key name string')
 T? enumValueByString<T>(List<T>? values, String? key, {T Function()? orElse}) {
   if (values == null || key == null) {
     if (orElse != null) {
@@ -63,3 +61,6 @@ T? enumValueByString<T>(List<T>? values, String? key, {T Function()? orElse}) {
 
   return null;
 }
+
+/// Throws if [values] or [key] gives null
+class EnumValueInvalidParamsException implements Exception {}

@@ -3,6 +3,18 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+
+## 0.3.0
+
+* Added `ListUtils` with thunks splitting
+* Added `isTomorrow` in date utils
+* Mark `enumValueByString` in enum utils deprecated.
+  But [dart add it feature from v2.15](https://api.flutter.dev/flutter/dart-core/EnumName/name.html)
+
+## 0.2.0
+
+* Stable release
+
 ## 0.2.0-nullsafety.0
 
 * Added nullsafety [pull#8](https://github.com/rbcprolabs/packages.dart/pull/8)

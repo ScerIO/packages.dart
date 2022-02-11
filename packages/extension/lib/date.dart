@@ -11,6 +11,13 @@ extension DateUtils on DateTime {
         day == nowDate.day - 1;
   }
 
+  bool get isTomorrow {
+    final nowDate = DateTime.now();
+    return year == nowDate.year &&
+        month == nowDate.month &&
+        day == nowDate.day + 1;
+  }
+
   /// The list of days in a given month
   List<DateTime> get daysInMonth {
     var first = firstDayOfMonth;
