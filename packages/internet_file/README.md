@@ -91,7 +91,8 @@ await InternetFile.get(
 ```
 ## Api
 
-InternetFile.get params
+__InternetFile.get params__
+
 | Parameter         | Description                                                                          | Optional | Default |
 |-------------------|--------------------------------------------------------------------------------------|----------|---------|
 | url               | Link to network file                                                                 | required | -       |
@@ -111,6 +112,7 @@ Uses:
 * [universal_file](https://pub.dev/packages/universal_file) - for work File in web
 
 Created for usage in:
-* [pdf_renderer](https://pub.dev/packages/pdf_renderer)
-* [pdf_view](https://pub.dev/packages/pdf_view)
+* [pdfx](https://pub.dev/packages/pdfx)
+* [native_pdf_renderer](https://pub.dev/packages/native_pdf_renderer)
+* [native_pdf_view](https://pub.dev/packages/native_pdf_renderer)
 * [epub_view](https://pub.dev/packages/epub_view)
