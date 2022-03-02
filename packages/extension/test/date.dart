@@ -1,4 +1,4 @@
-import 'package:extension/date.dart';
+import 'package:extension/extension.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -62,25 +62,15 @@ void main() {
     });
 
     test('isSameWeek', () {
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 4), DateTime(2017, 3, 5)),
+      expect(DateTime(2017, 3, 4).isSameWeek(DateTime(2017, 3, 5)), false);
+      expect(DateTime(2017, 3, 5).isSameWeek(DateTime(2017, 3, 6)), true);
+      expect(DateTime(2017, 2, 26).isSameWeek(DateTime(2017, 3, 4)), true);
+      expect(DateTime(2017, 3, 4).isSameWeek(DateTime(2017, 3, 10)), false);
+      expect(DateTime(2017, 3, 3).isSameWeek(DateTime(2017, 3, 10)), false);
+      expect(DateTime(2017, 3, 10).isSameWeek(DateTime(2017, 3, 10)), true);
+      expect(DateTime(2018, 3, 29, 12).isSameWeek(DateTime(2018, 3, 22, 12)),
           false);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)),
-          true);
-      expect(DateUtils.isSameWeek(DateTime(2017, 2, 26), DateTime(2017, 3, 4)),
-          true);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 4), DateTime(2017, 3, 10)),
-          false);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 3), DateTime(2017, 3, 10)),
-          false);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 10), DateTime(2017, 3, 10)),
-          true);
-      expect(
-          DateUtils.isSameWeek(
-              DateTime(2018, 3, 29, 12), DateTime(2018, 3, 22, 12)),
-          false);
-      expect(
-          DateUtils.isSameWeek(
-              DateTime(2018, 3, 6, 12), DateTime(2018, 3, 13, 12)),
+      expect(DateTime(2018, 3, 6, 12).isSameWeek(DateTime(2018, 3, 13, 12)),
           false);
     });
 

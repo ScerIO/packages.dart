@@ -15,13 +15,17 @@ extension StringUtils on String {
   bool get isEmail => _emailRegularExpression.hasMatch(this.toLowerCase());
 }
 
-/// Plural forms for russian words
-/// [number] count quantity for word
-String plural(int number, String form1, String form2, String form3) {
+/// Pluralize and singularize any word.
+String pluralize(
+  int number,
+  String form1,
+  String form2, [
+  String? form3,
+]) {
   final num = number % 100;
 
   if (num >= 11 && num <= 19) {
-    return form3;
+    return form3 ?? form2;
   }
 
   final i = num % 10;
@@ -34,6 +38,6 @@ String plural(int number, String form1, String form2, String form3) {
     case 4:
       return form2;
     default:
-      return form3;
+      return form3 ?? form2;
   }
 }

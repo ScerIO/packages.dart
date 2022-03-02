@@ -19,9 +19,9 @@ void main() {
   'qwerty'.isEmail; // return false
 
   // Plural forms for russian words
-  plural(1, 'дом', 'дома', 'домов'); // returns дом
-  plural(2, 'дом', 'дома', 'домов'); // returns дома
-  plural(5, 'дом', 'дома', 'домов'); // returns домов
+  pluralize(1, 'дом', 'дома', 'домов'); // returns дом
+  pluralize(2, 'дом', 'дома', 'домов'); // returns дома
+  pluralize(5, 'дом', 'дома', 'домов'); // returns домов
 
   /* Date */
 
@@ -41,7 +41,7 @@ void main() {
   DateTime(2017, 3)
       .daysInMonth; // [DateTime(2017, 3, 1), DateTime(2017, 3, 2), ...]
 
-  assert(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)));
+  assert(DateTime(2017, 3, 5).isSameWeek(DateTime(2017, 3, 6)));
 
   /* List */
 

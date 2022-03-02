@@ -18,15 +18,13 @@
 
 * Small weight
 * Simple usage
+* Many entities
 
 ## Getting Started
 
 Import
 ```dart
 import 'package:extension/extension.dart';
-
-// Or by entity. Available: string, date, list, enum
-import 'package:extension/<ENTITY NAME>.dart';
 ``` 
 
 ### String
@@ -39,15 +37,18 @@ import 'package:extension/<ENTITY NAME>.dart';
 'user@example.com'.isEmail; // return true
 'qwerty'.isEmail; // return false
 
-// Plural forms for russian words
-plural(1, 'дом', 'дома', 'домов'); // returns дом
-plural(2, 'дом', 'дома', 'домов'); // returns дома
-plural(5, 'дом', 'дома', 'домов'); // returns домов
+// Pluralize and singularize
+pluralize(1, 'дом', 'дома', 'домов'); // returns дом
+pluralize(2, 'дом', 'дома', 'домов'); // returns дома
+pluralize(5, 'дом', 'дома', 'домов'); // returns домов
 ```
 
 ### Date
 
 ```dart
+// Returns a [DateTime] with the date of the original
+DateTime(2017, 3, 6, 12, 30, 15).dateOnly; // DateTime(2017, 3, 6)
+
 // Is today
 DateTime.now().isToday; // return bool
 
@@ -56,6 +57,12 @@ DateTime.now().isYesterday; // return bool
 
 // Is yesterday
 DateTime.now().isTomorrow; // return bool
+
+/// The day after this [DateTime]
+DateTime(2017, 3, 5).nextDay; // return DateTime(2017, 3, 6)
+
+/// The day previous this [DateTime]
+DateTime(2017, 3, 5).previousDay; // return DateTime(2017, 3, 4)
 
 // First day of month
 DateTime(2018, 9, 30).firstDayOfMonth; // returns DateTime(2018, 9, 1)
@@ -66,14 +73,35 @@ DateTime(2017, 3).lastDayOfMonth; // DateTime(2017, 3, 31)
 // All days in month, DateTime array
 DateTime(2017, 3).daysInMonth; // [DateTime(2017, 3, 1), DateTime(2017, 3, 2), ...]
 
+// Whether or not two times are on the same day.
+DateTime.now().isSameDay(DateTime.now()); // returns true
 
-assert(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)));
+// Whether or not two times are on the same week.
+DateTime(2017, 3, 5).isSameWeek(DateTime(2017, 3, 6));
+
+/// Tomorrow at same hour / minute / second than now
+DateUtils.tomorrow;
+
+/// Yesterday at same hour / minute / second than now
+DateUtils.yesterday;
+
+/// Current date (Same as [Date.now])
+DateUtils.today;
+
+// Returns a [DateTime] for each day the given range.
+DateUtils.daysInRange(startDate, endDate); // List of dates
+
+/// Other methods
+date.firstDayOfWeek;
+date.lastDayOfWeek;
+date.previousMonth;
+date.nextMonth;
+date.previousWeek;
+date.nextWeek;
 ```
 
-### List
+### Iterables
 ```dart
-import 'package:extension/list.dart';
-
 // Split list by chunks
 [1, 2, 3, 4, 5, 6, 7, 8, 9].chunks(2); // => [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
 ```
@@ -81,8 +109,6 @@ import 'package:extension/list.dart';
 ### Enum
 
 ```dart
-import 'package:extension/enum.dart';
-
 // Enum with value 
 // assert(Meter.HIGH == 100);
 // assert(Meter.HIGH is Meter);

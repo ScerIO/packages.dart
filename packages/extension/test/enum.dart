@@ -1,4 +1,4 @@
-import 'package:extension/enum.dart';
+import 'package:extension/extension.dart';
 import 'package:test/test.dart';
 
 enum _TestNormal {

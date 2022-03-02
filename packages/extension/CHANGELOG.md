@@ -4,6 +4,48 @@
 [comment]: <> (* Change description)
 
 
+## 0.4.0
+
+* Replaced multiple imports by one 
+```diff
+-// Or by entity. Available: string, date, list, enum
+-import 'package:extension/<ENTITY NAME>.dart';
+
++import 'package:extension/extension.dart';
+```
+* Changed api's: 
+```diff
+- plural(1, 'дом', 'дома', 'домов');
+- pluralize(1, 'дом', 'дома', 'домов');
+
+- DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6));
++ DateTime(2017, 3, 5).isSameWeek(DateTime(2017, 3, 6));
+
+- DateUtils.isSameDay(DateTime.now(), DateTime.now());
++ DateTime.now().isSameDay(DateTime.now());
+```
+* Added date utils 
+```dart
+/// Tomorrow at same hour / minute / second than now
+DateUtils.tomorrow;
+
+/// Yesterday at same hour / minute / second than now
+DateUtils.yesterday;
+
+/// Current date (Same as [Date.now])
+DateUtils.today;
+
+// Returns a [DateTime] with the date of the original
+DateTime(2017, 3, 6, 12, 30, 15).dateOnly; // DateTime(2017, 3, 6)
+
+/// The day after this [DateTime]
+DateTime(2017, 3, 5).nextDay; // return DateTime(2017, 3, 6)
+
+/// The day previous this [DateTime]
+DateTime(2017, 3, 5).previousDay; // return DateTime(2017, 3, 4)
+```
+* Provide more docs at readme
+
 ## 0.3.0
 
 * Added `ListUtils` with thunks splitting
