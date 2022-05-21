@@ -1,7 +1,7 @@
 name: internet_file
 description: A internet file getter (also optional downloader) that works in all platforms
-repository: https://github.com/rbcprolabs/packages.dart/tree/master/packages/internet_file
-issue_tracker: https://github.com/rbcprolabs/packages.dart/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+internet_file%22
+repository: https://github.com/ScerIO/packages.dart/tree/master/packages/internet_file
+issue_tracker: https://github.com/ScerIO/packages.dart/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+internet_file%22
 version: 1.0.0+2
 
 environment:
@@ -13,4 +13,4 @@ dependencies:
   universal_file: ^1.0.0
 
 dev_dependencies:
-  lints: ^1.0.0
+  lints: ^2.0.0

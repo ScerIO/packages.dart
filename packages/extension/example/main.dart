@@ -1,13 +1,5 @@
 import 'package:extension/extension.dart';
 
-class Meter<int> extends Enum<int> {
-  const Meter(int val) : super(val);
-
-  static const Meter HIGH = const Meter(100);
-  static const Meter MIDDLE = const Meter(50);
-  static const Meter LOW = const Meter(10);
-}
-
 void main() {
   /* String */
 
@@ -48,10 +40,4 @@ void main() {
   // Split list by chunks
   [1, 2, 3, 4, 5, 6, 7, 8, 9].chunks(2);
   // => [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
-
-  /* Enum */
-
-  // Enum with value
-  assert(Meter.HIGH == 100);
-  assert(Meter.HIGH is Meter);
 }

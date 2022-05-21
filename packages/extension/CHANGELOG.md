@@ -3,6 +3,9 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.5.0
+
+* Removed `enum` entity with `Enum<T> & enumValueByString` but enhanced enums added in dart 2.17 
 
 ## 0.4.0
 

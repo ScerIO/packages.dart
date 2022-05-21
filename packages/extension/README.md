@@ -100,37 +100,5 @@ date.previousWeek;
 date.nextWeek;
 ```
 
-### Iterables
-```dart
-// Split list by chunks
-[1, 2, 3, 4, 5, 6, 7, 8, 9].chunks(2); // => [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
-```
-
-### Enum
-
-```dart
-// Enum with value 
-// assert(Meter.HIGH == 100);
-// assert(Meter.HIGH is Meter);
-class Meter<int> extends Enum<int> {
-  const Meter(int val) : super (val);
-
-  static const Meter HIGH = const Meter(100);
-  static const Meter MIDDLE = const Meter(50);
-  static const Meter LOW = const Meter(10);
-}
-
-// Enum value by string
-// Deprecated! Usage dart 2.15 native support instead
-final AnyEnum one = enumValueByString(AnyEnum.values, 'one'); // Returns AnyEnum.one
-final AnyEnum one = enumValueByString(AnyEnum.values, 'qwerty', orElse: () => AnyEnum.two); // Returns AnyEnum.two
-
-enum AnyEnum {
-  one,
-  two,
-  three,
-}
-``` 
-
 And... all api reference [available here](https://pub.dev/documentation/extension/latest/)
 

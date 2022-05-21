@@ -1,6 +1,4 @@
 import 'package:network/network.dart';
-import 'package:network/src/request.dart';
-import 'package:network/src/response.dart';
 
 import 'methods.dart';
 
