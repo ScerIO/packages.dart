@@ -41,4 +41,13 @@ class InternetFileStorageIO extends InternetFileStorage {
     ));
     return file;
   }
+
+  Map<String, String> additional({
+    required String filename,
+    required String location,
+  }) =>
+      {
+        'location': location,
+        'filename': filename,
+      };
 }

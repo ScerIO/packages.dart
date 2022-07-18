@@ -13,10 +13,13 @@ class InternetFile {
     InternetFileProcess? process,
     InternetFileStorage? storage,
     InternetFileStorageAdditional storageAdditional = const {},
+    bool force = false,
+    String method = 'GET',
+    bool debug = false,
   }) async {
     final completer = Completer<Uint8List>();
     final httpClient = http.Client();
-    final request = http.Request('GET', Uri.parse(url));
+    final request = http.Request(method, Uri.parse(url));
     if (headers != null) {
       request.headers.addAll(headers);
     }
@@ -27,7 +30,7 @@ class InternetFile {
 
     if (storage != null) {
       final localResult = await storage.findExist(url, storageAdditional);
-      if (localResult != null) {
+      if (localResult != null && !force) {
         return localResult;
       }
     }
@@ -38,7 +41,9 @@ class InternetFile {
           final contentLength = request.contentLength ?? 0;
           final percentage = downloaded / contentLength * 100;
           // Display percentage of completion
-          print('downloadPercentage: $percentage');
+          if (debug) {
+            print('downloadPercentage: $percentage');
+          }
           process?.call(percentage);
 
           chunks.add(chunk);
@@ -48,7 +53,9 @@ class InternetFile {
           final contentLength = request.contentLength ?? 0;
           final percentage = downloaded / contentLength * 100;
 
-          print('downloadPercentage: $percentage');
+          if (debug) {
+            print('downloadPercentage: $percentage');
+          }
           process?.call(percentage);
 
           final Uint8List bytes = Uint8List(contentLength);
@@ -62,13 +69,10 @@ class InternetFile {
             storage.save(url, storageAdditional, bytes);
           }
           completer.complete(bytes);
-          return;
         },
-        onError: (error) {
-          completer.completeError(error);
-        },
+        onError: completer.completeError,
       );
-    });
+    }, onError: completer.completeError);
     return completer.future;
   }
 }

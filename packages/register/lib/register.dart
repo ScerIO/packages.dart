@@ -28,8 +28,7 @@ class Register implements Comparable<Register> {
           const ListEquality().equals(_words, other._words));
 
   @override
-  int get hashCode =>
-      hash2(_id, const ListEquality<String>().hash(_words ?? const []));
+  int get hashCode => hash2(_id, const ListEquality<String>().hash(_words));
 
   /// String containing the lower case words separated by '_'
   String get id => _id;
@@ -74,7 +73,7 @@ class Register implements Comparable<Register> {
 
     return text
         .splitMapJoin(_capWordDelimiterRe,
-            onMatch: (Match match) => match.group(0).toLowerCase(),
+            onMatch: (Match match) => match.group(0)?.toLowerCase() ?? '',
             onNonMatch: (String nonMatch) => nonMatch + '_')
         .replaceAll(_leadingTrailingUnderbarRe, '');
   }
@@ -242,7 +241,7 @@ final RegExp _capSubstring = RegExp(r'([A-Z]+)([A-Z]|$)');
 /// e.g.  capSubstringToCamel('CIASpy') -> 'CiaSpy'
 ///
 String capSubstringToCamel(String s) => s.replaceAllMapped(_capSubstring,
-    (Match m) => '${Register.capitalize(m[1].toLowerCase())}${m[2]}');
+    (Match m) => '${Register.capitalize(m[1]?.toLowerCase() ?? '')}${m[2]}');
 
 /// Create a [RegisterTrailingUnderscore]
 Register idTrailingUnderscore(Object id) => RegisterTrailingUnderscore(id);

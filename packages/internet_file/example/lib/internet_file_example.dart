@@ -5,12 +5,12 @@ void main() async {
   final storageIO = InternetFileStorageIO();
 
   await InternetFile.get(
-    'https://github.com/rbcprolabs/icon_font_generator/raw/master/example/lib/icon_font/ui_icons.ttf',
+    'http://www.africau.edu/images/default/sample.pdf',
     storage: storageIO,
-    storageAdditional: {
-      'filename': 'ui_icons.ttf',
-      'location': '',
-    },
+    storageAdditional: storageIO.additional(
+      filename: 'ui_icons.ttf',
+      location: '',
+    ),
     process: (percentage) {
       print('downloadPercentage: $percentage');
     },
