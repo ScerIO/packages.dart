@@ -29,8 +29,10 @@ import 'package:internet_file/internet_file.dart';
 
 final Uint8List bytes = await InternetFile.get(
     'https://github.com/rbcprolabs/icon_font_generator/raw/master/example/lib/icon_font/ui_icons.ttf',
-    process: (percentage) {
-        print('downloadPercentage: $percentage');
+    progress: (receivedLength, contentLength) {
+      final percentage = receivedLength / contentLength * 100;
+      print(
+          'download progress: $receivedLength of $contentLength ($percentage%)');
     },
 );
 ```
@@ -97,7 +99,7 @@ __InternetFile.get params__
 |-------------------|--------------------------------------------------------------------------------------|----------|---------|
 | url               | Link to network file                                                                 | required | -       |
 | headers           | Headers passed for wile load                                                         | optional | -       |
-| process           | Callback with percentage progress value called when file loads                       | optional | -       |
+| progress          | Callback with received & all bytes length progress value called when file loads      | optional | -       |
 | storage           | Implements of `InternetFileStorage` with save & find local methods for saving files  | optional | -       |
 | storageAdditional | Additional args for pass to `InternetFileStorage` implementation passed in `storage` | optional | {}      |
 

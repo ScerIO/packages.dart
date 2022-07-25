@@ -1,6 +1,24 @@
+## 1.2.0
+
+* Fixed download files without content length!
+Now any files can be downloaded c:
+* Deprecated api `process(double percentage)` at `InternetFile.get`
+* Added new api `progress(int receivedLength, int contentLength)` at `InternetFile.get`
+Usage example:
+```diff
+- process: (percentage) {
+-   print('downloadPercentage: $percentage');
+- },
++progress: (receivedLength, contentLength) {  
++  final percentage = receivedLength / contentLength * 100;
++  print(
++    'download progress: $receivedLength of $contentLength bytes ( $percentage% )');
++},
+```
+
 ## 1.1.0
 
-* Added helper for `InternetFileStorageIO`
+* Added strong typed helper for `InternetFileStorageIO`
 ```diff
 InternetFile.get(
 - storageAdditional: {

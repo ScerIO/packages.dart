@@ -11,8 +11,11 @@ void main() async {
       filename: 'ui_icons.ttf',
       location: '',
     ),
-    process: (percentage) {
-      print('downloadPercentage: $percentage');
+    force: true,
+    progress: (receivedLength, contentLength) {
+      final percentage = receivedLength / contentLength * 100;
+      print(
+          'download progress: $receivedLength of $contentLength ($percentage%)');
     },
   );
 }
