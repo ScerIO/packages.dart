@@ -80,16 +80,16 @@ DateTime.now().isSameDay(DateTime.now()); // returns true
 DateTime(2017, 3, 5).isSameWeek(DateTime(2017, 3, 6));
 
 /// Tomorrow at same hour / minute / second than now
-DateUtils.tomorrow;
+DateExtension.tomorrow;
 
 /// Yesterday at same hour / minute / second than now
-DateUtils.yesterday;
+DateExtension.yesterday;
 
 /// Current date (Same as [Date.now])
-DateUtils.today;
+DateExtension.today;
 
 // Returns a [DateTime] for each day the given range.
-DateUtils.daysInRange(startDate, endDate); // List of dates
+DateExtension.daysInRange(startDate, endDate); // List of dates
 
 /// Other methods
 date.firstDayOfWeek;
@@ -98,6 +98,16 @@ date.previousMonth;
 date.nextMonth;
 date.previousWeek;
 date.nextWeek;
+```
+
+#### Time
+
+```dart
+final time = Time(15, 30);
+
+final nowTime = DateTime.now().time; // returns Time
+
+
 ```
 
 And... all api reference [available here](https://pub.dev/documentation/extension/latest/)

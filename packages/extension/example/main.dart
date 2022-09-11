@@ -40,4 +40,12 @@ void main() {
   // Split list by chunks
   [1, 2, 3, 4, 5, 6, 7, 8, 9].chunks(2);
   // => [[1, 2], [3, 4], [5, 6], [7, 8], [9]]
+
+  const time = Time(15, 30);
+
+  final nowTime = DateTime.now().time; // returns Time
+
+  final diff = time.difference(nowTime);
+
+  print(diff.inMinutes);
 }

@@ -113,7 +113,8 @@ void main() {
         var lastDayOfCurrentWeek = today.lastDayOfWeek;
 
         expect(
-            DateUtils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
+            DateExtension.daysInRange(
+                    firstDayOfCurrentWeek, lastDayOfCurrentWeek)
                 .toList()
                 .length,
             7);

@@ -1,4 +1,6 @@
-extension DateUtils on DateTime {
+import 'time.dart';
+
+extension DateExtension on DateTime {
   /// Tomorrow at same hour / minute / second than now
   static DateTime get tomorrow => DateTime.now().nextDay;
 
@@ -182,4 +184,13 @@ extension DateUtils on DateTime {
     final result = max.weekday % 7 - min.weekday % 7 >= 0;
     return result;
   }
+
+  /// Returns only the time.
+  Time get time => Time(
+        hour,
+        minute,
+        second,
+        millisecond,
+        microsecond,
+      );
 }

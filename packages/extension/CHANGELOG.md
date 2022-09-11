@@ -3,6 +3,16 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 0.6.0
+
+* Renamed: 
+`DateUtils` -> `DateExtension`, 
+`ListUtils` -> `ListExtension`,
+`StringUtils` -> `StringExtension`
+* Added `IterableExtension` with chunk method
+* Added `NumExtension` with methods: `padLeft, padRight, between, outside`
+* Added `Time` class
+
 ## 0.5.0
 
 * Removed `enum` entity with `Enum<T> & enumValueByString` but enhanced enums added in dart 2.17 
@@ -21,22 +31,22 @@
 - plural(1, 'дом', 'дома', 'домов');
 - pluralize(1, 'дом', 'дома', 'домов');
 
-- DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6));
+- DateExtension.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6));
 + DateTime(2017, 3, 5).isSameWeek(DateTime(2017, 3, 6));
 
-- DateUtils.isSameDay(DateTime.now(), DateTime.now());
+- DateExtension.isSameDay(DateTime.now(), DateTime.now());
 + DateTime.now().isSameDay(DateTime.now());
 ```
 * Added date utils 
 ```dart
 /// Tomorrow at same hour / minute / second than now
-DateUtils.tomorrow;
+DateExtension.tomorrow;
 
 /// Yesterday at same hour / minute / second than now
-DateUtils.yesterday;
+DateExtension.yesterday;
 
 /// Current date (Same as [Date.now])
-DateUtils.today;
+DateExtension.today;
 
 // Returns a [DateTime] with the date of the original
 DateTime(2017, 3, 6, 12, 30, 15).dateOnly; // DateTime(2017, 3, 6)
