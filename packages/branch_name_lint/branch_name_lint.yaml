@@ -1,0 +1,14 @@
+pattern: ":type/:name"
+
+params:
+  type:
+    - feature
+    - release
+    - hotfix
+    - fix 
+  name: "[a-z0-9-]+"
+
+allowed: 
+  - main
+
+prohibited:
