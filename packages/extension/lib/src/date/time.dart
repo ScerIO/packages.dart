@@ -1,3 +1,4 @@
+import 'package:extension/src/core/pattern_formatter.dart';
 import 'package:extension/src/num.dart';
 import 'package:meta/meta.dart';
 
@@ -183,7 +184,69 @@ class Time implements Comparable<Time> {
     return microseconds;
   }
 
+  /// The following characters are available in explicit patterns:
+  ///
+  ///     Symbol   Meaning                Presentation       Example
+  ///     ------   -------                ------------       -------
+  ///     H        hour in day (0~23)     (Number)           0
+  ///     m        minute in hour         (Number)           30
+  ///     s        second in minute       (Number)           55
+  String format([String pattern = '']) {
+    // Соберём символы, которые мы можем обрабатывать
+    final symbols = _resolvers.map((r) => r.symbol).join('');
+    // Регулярное выражение для поиска последовательностей символов H, m, s
+    final from = RegExp('[$symbols]+');
+
+    return pattern.replaceAllMapped(from, (match) {
+      final matched = match.group(0)!;
+      // Допустим, символы однотипны (например "HH" или "mm")
+      // Тогда возьмём первый символ, чтобы определить резольвер
+      final symbol = matched[0];
+
+      final resolver = _resolvers.firstWhere(
+        (r) => r.symbol == symbol,
+        orElse: () => throw StateError('No resolver found for symbol $symbol'),
+      );
+
+      return resolver.transform(matched);
+    });
+  }
+
   @override
   String toString() =>
       '${hour.padLeft(2)}:${minute.padLeft(2)}:${second.padLeft(2)}.${(millisecond * 1000 + microsecond).padLeft(6)}';
 }
+
+/// Пример: реализация форматирования времени
+/// Допустим, у нас есть резольверы для H, m, s
+final _resolvers = [
+  FormatResolver(
+    symbol: 'H',
+    transform: (input) {
+      final now = DateTime.now();
+      // Если, например, "HH" означает двухзначный час
+      // а "H" — однозначный, то можно смотреть на длину input
+      return input.length == 2
+          ? now.hour.toString().padLeft(2, '0')
+          : now.hour.toString();
+    },
+  ),
+  FormatResolver(
+    symbol: 'm',
+    transform: (input) {
+      final now = DateTime.now();
+      return input.length == 2
+          ? now.minute.toString().padLeft(2, '0')
+          : now.minute.toString();
+    },
+  ),
+  FormatResolver(
+    symbol: 's',
+    transform: (input) {
+      final now = DateTime.now();
+      return input.length == 2
+          ? now.second.toString().padLeft(2, '0')
+          : now.second.toString();
+    },
+  ),
+];

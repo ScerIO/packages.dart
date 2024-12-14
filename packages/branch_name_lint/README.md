@@ -22,8 +22,8 @@
 
 ### Installation
 
-```shell
-> dart pub add --dev branch_name_lint
+```sh
+dart pub add --dev branch_name_lint
 ```
 
 ### Git hook
