@@ -2,15 +2,15 @@ name: internet_file
 description: A internet file getter (also optional downloader) that works in all platforms
 repository: https://github.com/ScerIO/packages.dart/tree/master/packages/internet_file
 issue_tracker: https://github.com/ScerIO/packages.dart/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+internet_file%22
-version: 1.2.0
+version: 1.2.1
 
 environment:
-  sdk: '>=2.14.3 <3.0.0'
+  sdk: ^3.9.0
 
 dependencies:
-  http: ^1.1.0
-  path: ^1.8.3
+  http: ^1.5.0
+  path: ^1.9.1
   universal_file: ^1.0.0
 
 dev_dependencies:
-  lints: ^2.1.1
+  lints: ^6.0.0
