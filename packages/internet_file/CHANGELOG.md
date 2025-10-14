@@ -1,3 +1,7 @@
+## 1.3.0
+
+* Updated for support dart v3.9.0 and flutter 3.20+
+
 ## 1.2.0
 
 * Fixed download files without content length!
