@@ -3,6 +3,11 @@
 [comment]: <> (### Breaking Changes or ### New Features)
 [comment]: <> (* Change description)
 
+## 1.0.0
+
+* Upgraded dependencies
+* Upgraded to dart 3.9.0
+
 ## 0.6.0
 
 * Renamed: 
