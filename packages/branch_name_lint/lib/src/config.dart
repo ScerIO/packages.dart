@@ -45,12 +45,10 @@ class Config {
     return Config(
       pattern: json['pattern'] as String? ?? ':type/:name',
       params: Map<String, List<String>>.fromEntries(paramsTransformed),
-      prohibited: (json['prohibited'] as List? ?? [])
-          .map((e) => e.toString())
-          .toList(),
-      allowed: (json['allowed'] as List? ?? [])
-          .map((e) => e.toString())
-          .toList(),
+      prohibited:
+          (json['prohibited'] as List? ?? []).map((e) => e.toString()).toList(),
+      allowed:
+          (json['allowed'] as List? ?? []).map((e) => e.toString()).toList(),
     );
   }
 
@@ -93,7 +91,8 @@ class Config {
 
   static Config create(
     BranchNameOptions Function(DirectoriesReader readDirectories) data,
-  ) => Config.fromJson(data(readDirectories));
+  ) =>
+      Config.fromJson(data(readDirectories));
 
   static List<String> readDirectories(String path) => Directory(path)
       .listSync()

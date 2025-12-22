@@ -122,8 +122,7 @@ void main() {
           allowed: ['main', 'development'],
         );
 
-        final branchName =
-            await BranchName.create(config, branchName: 'main');
+        final branchName = await BranchName.create(config, branchName: 'main');
         expect(() => branchName.lint(), returnsNormally);
       });
 
@@ -152,8 +151,7 @@ void main() {
           prohibited: ['main'],
         );
 
-        final branchName =
-            await BranchName.create(config, branchName: 'main');
+        final branchName = await BranchName.create(config, branchName: 'main');
         expect(() => branchName.lint(), returnsNormally);
       });
     });
@@ -169,8 +167,7 @@ void main() {
           prohibited: ['main', 'master', 'ci', 'test'],
         );
 
-        final branchName =
-            await BranchName.create(config, branchName: 'main');
+        final branchName = await BranchName.create(config, branchName: 'main');
         expect(
           () => branchName.lint(),
           throwsA(
@@ -208,8 +205,7 @@ void main() {
           prohibited: ['main'],
         );
 
-        final branchName =
-            await BranchName.create(config, branchName: 'main');
+        final branchName = await BranchName.create(config, branchName: 'main');
         expect(() => branchName.lint(), returnsNormally);
       });
 
@@ -430,4 +426,3 @@ void main() {
     });
   });
 }
-

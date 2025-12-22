@@ -37,15 +37,15 @@ void printUsage(ArgParser parser) {
 
 void main(List<String> arguments) async {
   final parser = buildParser();
-  
+
   try {
     final results = parser.parse(arguments);
-    
+
     if (results['help'] as bool) {
       printUsage(parser);
       exit(0);
     }
-    
+
     const rcFileName = 'branch_name_lint';
     final config = await Config.find(rcFileName);
     final branchName = results['branch-name'] as String?;
