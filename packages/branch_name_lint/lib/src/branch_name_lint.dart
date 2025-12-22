@@ -44,15 +44,34 @@ class BranchName {
 
   /// Retrieves the current branch name
   static Future<String> get currentBranchName async {
-    final result =
-        await Process.run('git', ['rev-parse', '--abbrev-ref', 'HEAD']);
+    final result = await Process.run('git', ['branch', '--show-current']);
     if (result.exitCode != 0) {
       throw Exception('Failed to get branch name: ${result.stderr}');
     }
     return (result.stdout as String).trim();
   }
 
+  /// Creates a BranchName instance with optional branch name override
+  ///
+  /// If [branchName] is provided and not empty, it will be used instead
+  /// of retrieving the branch name from git.
+  /// This is useful for CI/CD environments where you want to validate
+  /// a specific branch name without relying on git commands.
+  static Future<BranchName> create(
+    Config config, {
+    String? branchName,
+  }) async {
+    final name = (branchName != null && branchName.isNotEmpty)
+        ? branchName
+        : await currentBranchName;
+    return BranchName._(config, name);
+  }
+
+  /// Creates a BranchName instance using the current git branch
+  ///
+  /// Deprecated: Use [create] instead for better flexibility
+  @Deprecated('Use create() instead')
   static Future<BranchName> current(Config config) async {
-    return BranchName._(config, await currentBranchName);
+    return create(config);
   }
 }

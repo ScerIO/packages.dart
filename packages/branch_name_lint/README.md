@@ -20,10 +20,42 @@
 
 ## Usage
 
+**Requirements:**
+
+- Dart 3.6.0+
+- Git 2.22.0+ 
+
 ### Installation
 
 ```sh
 dart pub add --dev branch_name_lint
+```
+
+### Command Line Arguments
+
+The tool supports the following command line arguments:
+
+#### `--branch-name` / `-b`
+
+Override the branch name instead of using the current git branch. This is especially useful in CI/CD environments where you want to validate a specific branch name.
+
+**Examples:**
+
+```sh
+# Local usage (uses git to get current branch)
+dart run branch_name_lint
+
+# Using environment variables in CI/CD
+dart run branch_name_lint -b $CI_BRANCH_NAME
+dart run branch_name_lint -b $GITHUB_HEAD_REF
+```
+
+#### `--help` / `-h`
+
+Display usage information and available options.
+
+```sh
+dart run branch_name_lint --help
 ```
 
 ### Git hook
