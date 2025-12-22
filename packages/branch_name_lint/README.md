@@ -97,7 +97,7 @@ params:
   task: "[0-9]+"
   description: "[a-z0-9-]+"
 prohibited:
-  - 'master'
+  - 'main'
   - 'ci'
 allowed:
   - test
@@ -130,7 +130,7 @@ pattern:
 params:
 
 prohibited: 
-  - master
+  - main
   - main
   - build
   - test
@@ -205,7 +205,7 @@ final config = Config.create((context) => {
     'scope': context.readDirectories('./packages'),
   },
   'prohibited': [
-    'master',
+    'main',
     'main',
     'build',
     'test',

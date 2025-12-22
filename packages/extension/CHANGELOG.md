@@ -77,7 +77,7 @@ DateTime(2017, 3, 5).previousDay; // return DateTime(2017, 3, 4)
 
 ## 0.2.0-nullsafety.0
 
-* Added nullsafety [pull#8](https://github.com/rbcprolabs/packages.dart/pull/8)
+* Added nullsafety [pull#8](https://github.com/ScerIO/packages.dart/pull/8)
 
 ## 0.1.1
 

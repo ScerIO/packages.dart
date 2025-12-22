@@ -13,15 +13,7 @@ final _defaultConfig = Config(
     'type': ['fix', 'docs', 'misc', 'feature', 'hotfix'],
     'name': ['[a-z0-9-]+'],
   },
-  prohibited: [
-    'ci',
-    'wip',
-    'main',
-    'master',
-    'test',
-    'build',
-    'release',
-  ],
+  prohibited: ['ci', 'wip', 'main', 'main', 'test', 'build', 'release'],
 );
 
 /// Branch name linter's configuration
@@ -41,20 +33,24 @@ class Config {
   factory Config.fromJson(Map<String, Object?> json) {
     final params = Map<String, Object>.from(json['params'] as Map);
 
-    final paramsTransformed = params.entries.map((entry) => MapEntry(
-          entry.key,
-          entry.value is List
-              ? (entry.value as List).map((e) => e.toString()).toList()
-              : [entry.value.toString()],
-        ));
+    final paramsTransformed = params.entries.map(
+      (entry) => MapEntry(
+        entry.key,
+        entry.value is List
+            ? (entry.value as List).map((e) => e.toString()).toList()
+            : [entry.value.toString()],
+      ),
+    );
 
     return Config(
       pattern: json['pattern'] as String? ?? ':type/:name',
       params: Map<String, List<String>>.fromEntries(paramsTransformed),
-      prohibited:
-          (json['prohibited'] as List? ?? []).map((e) => e.toString()).toList(),
-      allowed:
-          (json['allowed'] as List? ?? []).map((e) => e.toString()).toList(),
+      prohibited: (json['prohibited'] as List? ?? [])
+          .map((e) => e.toString())
+          .toList(),
+      allowed: (json['allowed'] as List? ?? [])
+          .map((e) => e.toString())
+          .toList(),
     );
   }
 
@@ -70,7 +66,8 @@ class Config {
 
     if (pubspecData['branch_name_lint'] != null) {
       return Config.fromJson(
-          pubspecData['branch_name_lint'] as BranchNameOptions);
+        pubspecData['branch_name_lint'] as BranchNameOptions,
+      );
     }
 
     final candidates = [
@@ -95,14 +92,14 @@ class Config {
   }
 
   static Config create(
-          BranchNameOptions Function(DirectoriesReader readDirectories) data) =>
-      Config.fromJson(data(readDirectories));
+    BranchNameOptions Function(DirectoriesReader readDirectories) data,
+  ) => Config.fromJson(data(readDirectories));
 
   static List<String> readDirectories(String path) => Directory(path)
       .listSync()
       .whereType<Directory>()
-      .map((dir) => dir.path
-          .split(Platform.pathSeparator)
-          .last) // Извлекаем имя директории
+      .map(
+        (dir) => dir.path.split(Platform.pathSeparator).last,
+      ) // Извлекаем имя директории
       .toList();
 }

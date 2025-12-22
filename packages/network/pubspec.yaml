@@ -1,7 +1,7 @@
 name: network
 description: Package including hooks for easy works with http package in dart
 version: 1.0.0
-homepage: https://github.com/ScerIO/packages.dart/tree/master/packages/network
+homepage: https://github.com/ScerIO/packages.dart/tree/main/packages/network
 
 environment:
   sdk: '>=2.14.0 <3.0.0'

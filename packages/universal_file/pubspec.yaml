@@ -1,7 +1,7 @@
 name: universal_file
 description: Cross-platform File & Directory that works in all platforms (browsers, Flutter, and VM)
-repository: https://github.com/rbcprolabs/packages.dart/tree/master/packages/universal_file
-issue_tracker: https://github.com/rbcprolabs/packages.dart/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+universal_file%22
+repository: https://github.com/ScerIO/packages.dart/tree/main/packages/universal_file
+issue_tracker: https://github.com/ScerIO/packages.dart/issues?q=is%3Aissue+is%3Aopen+label%3A%22p%3A+universal_file%22
 version: 1.0.0
 
 environment:

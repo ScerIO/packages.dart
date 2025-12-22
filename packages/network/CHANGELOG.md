@@ -9,7 +9,7 @@
 
 ## 0.10.0
 
-* Fixed `Request.copyWith` [pull#5](https://github.com/rbcprolabs/packages.dart/pull/5)
+* Fixed `Request.copyWith` [pull#5](https://github.com/ScerIO/packages.dart/pull/5)
 * Removed import hooks
 * Now hooks is extension for String (`'myUrl'.get()` etc)
 * Added `FormData`, can be send from all network methods

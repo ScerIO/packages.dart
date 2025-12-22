@@ -14,7 +14,7 @@ function check_changed_packages() {
     IFS=$'\n' packages=( $(git diff --name-only "$branch_base_sha" HEAD | grep -o "packages/[^/]*" | sed -e "s/packages\///g" | sort | uniq) )
   else
     error "Cannot find a merge base for the current branch to run an incremental build..."
-    error "Please rebase your branch onto the latest master!"
+    error "Please rebase your branch onto the latest main!"
     return 1
   fi
 

@@ -2,7 +2,7 @@ name: branch_name_lint
 description: A special tool to improve work with branches in teams
 version: 1.0.0
 repository: https://github.com/ScerIO/packages.dart
-homepage: https://github.com/ScerIO/packages.dart/tree/master/packages/branch_name_lint
+homepage: https://github.com/ScerIO/packages.dart/tree/main/packages/branch_name_lint
 
 environment:
   sdk: ^3.6.0

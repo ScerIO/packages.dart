@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/rbcprolabs/packages.dart/master/packages/internet_file/media/hero.png" alt="Logo" width="100%" />
+<img src="https://raw.githubusercontent.com/ScerIO/packages.dart/main/packages/internet_file/media/hero.png" alt="Logo" width="100%" />
 <br />
 <h2 align="center">A internet file getter (also optional downloader) that works in all platforms (browsers, mobile, desktop, and server-side)</h2>
 <br />
@@ -28,7 +28,7 @@ Simple usage anywhere:
 import 'package:internet_file/internet_file.dart';
 
 final Uint8List bytes = await InternetFile.get(
-    'https://github.com/rbcprolabs/icon_font_generator/raw/master/example/lib/icon_font/ui_icons.ttf',
+    'https://github.com/ScerIO/icon_font_generator/raw/main/example/lib/icon_font/ui_icons.ttf',
     progress: (receivedLength, contentLength) {
       final percentage = receivedLength / contentLength * 100;
       print(
@@ -44,7 +44,7 @@ import 'package:internet_file/storage_io.dart';
 final storageIO = InternetFileStorageIO();
 
 await InternetFile.get(
-    'https://github.com/rbcprolabs/icon_font_generator/raw/master/example/lib/icon_font/ui_icons.ttf',
+    'https://github.com/ScerIO/icon_font_generator/raw/main/example/lib/icon_font/ui_icons.ttf',
     storage: storageIO,
     storageAdditional: storageIO.additional( 
       filename: 'ui_icons.ttf',
@@ -82,7 +82,7 @@ class MyOwnInternetFileStorage extends InternetFileStorage {
 
 final myOwnStorage = MyOwnInternetFileStorage();
 await InternetFile.get(
-    'https://github.com/rbcprolabs/icon_font_generator/raw/master/example/lib/icon_font/ui_icons.ttf',
+    'https://github.com/ScerIO/icon_font_generator/raw/main/example/lib/icon_font/ui_icons.ttf',
     storage: myOwnStorage,
     storageAdditional: {
         'my_string_property': 'string',
